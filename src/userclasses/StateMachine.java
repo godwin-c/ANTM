@@ -72,6 +72,7 @@ public class StateMachine extends StateMachineBase {
     Result result;
     String status2;
     InputStream countryCodeStream;
+    String nextURL;
     String appId = "GiCVsxB2ZrOcUaTMXHl1JXIiBYKbmSgB6fpEdrVn";
     String restApiKey = "SUk9g42zC9ZRHJYIFbisdKM7FRGckKV33gtq3QNh";
     String myKey = "AIzaSyB7t94-6U-G2PTWC_czQ-LwsNMbUaTqmO4";
@@ -95,7 +96,7 @@ public class StateMachine extends StateMachineBase {
         Hashtable data = new Hashtable();
         data.put("name", username);
         data.put("country", country);
-        data.put("email", email);        
+        data.put("email", email);
         data.put("phone", number);
 
         final String json = Result.fromContent(data).toString();
@@ -118,7 +119,7 @@ public class StateMachine extends StateMachineBase {
             protected void readResponse(InputStream input) throws IOException {
 
 
-                status = String.valueOf(getResposeCode());
+                status = String.valueOf(getResponseCode());
                 //System.out.println("The respone code is : " + status);
 
                 JSONParser p = new JSONParser();
@@ -128,7 +129,7 @@ public class StateMachine extends StateMachineBase {
                 regResponse = (String) h.get("response");
                 //scoutDates = (Vector) h.get("root");
 //                regResponse = Util.readToString(input);
-//                System.out.println("The response is " + regResponse);
+                System.out.println("The response is " + regResponse);
 
 
             }
@@ -161,7 +162,7 @@ public class StateMachine extends StateMachineBase {
         d.setBackCommand(c);
 
 
-       
+
         String url = "http://107.20.238.53:8080/africanexttopmodel2013/Receiver";
         request.setUrl(url);
         request.setFailSilently(true);//stops user from seeing error message on failure
@@ -190,14 +191,14 @@ public class StateMachine extends StateMachineBase {
 //            }
             //*****************
 //            @Override
-//            public int getResposeCode() {
-//                return super.getResposeCode(); //To change body of generated methods, choose Tools | Templates.
+//            public int getResponseCode() {
+//                return super.getResponseCode(); //To change body of generated methods, choose Tools | Templates.
 //            }
             @Override
             protected void readResponse(InputStream input) throws IOException {
 
 
-                status = String.valueOf(getResposeCode());
+                status = String.valueOf(getResponseCode());
                 //System.out.println("The respone code is : " + status);
 
                 // result = Result.fromContent(input, Result.XML);
@@ -268,7 +269,7 @@ public class StateMachine extends StateMachineBase {
             protected void readResponse(InputStream input) throws IOException {
 
 
-                status = String.valueOf(getResposeCode());
+                status = String.valueOf(getResponseCode());
                 //System.out.println("The respone code is : " + status);
 
                 JSONParser p = new JSONParser();
@@ -334,41 +335,114 @@ public class StateMachine extends StateMachineBase {
     }
 
     private void fetchFromGallery() {
-        final ConnectionRequest request = new ConnectionRequest() {
-//            // **************** Get the status of the connection        
+//        final ConnectionRequest request = new ConnectionRequest() {
+////            // **************** Get the status of the connection        
+////            @Override
+////            protected void readHeaders(Object connection) throws IOException {
+////
+////                status = getHeader(connection, null);
+////                 System.out.println("The status of the connection: " + status);
+////            }
+////            //*****************
 //            @Override
-//            protected void readHeaders(Object connection) throws IOException {
+//            protected void readResponse(InputStream input) throws IOException {
 //
-//                status = getHeader(connection, null);
-//                 System.out.println("The status of the connection: " + status);
+//                status = String.valueOf(getResponseCode());
+//                //System.out.println("The respone code is : " + status);
+//
+//                JSONParser p = new JSONParser();
+//                InputStreamReader inp = new InputStreamReader(input);
+//                Hashtable h = p.parse(inp);
+//                galleryImages = (Vector) h.get("root");
+//                // System.out.println(h.toString());
+////                String username = h.get("username").toString();
+////                String email = h.get("email").toString();
+////                appUser = new AppUsers(username, email);
+//
+//                // System.out.println(contestantsFetched.toString());
+//
+//
 //            }
-//            //*****************
+//        };
+//
+//        final NetworkManager manager = NetworkManager.getInstance();
+//        Command c = new Command("Cancel") {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                manager.killAndWait(request); //               evt.consume();
+//                //evt.consume();
+//            }
+//        };
+//
+//        InfiniteProgress ip = new InfiniteProgress();
+//        //Dialog dlg = ip.showInifiniteBlocking();
+//        Dialog d = new Dialog();
+//        d.setDialogUIID("Container");
+//        d.setLayout(new BorderLayout());
+//        Container cnt = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+//        Label l = new Label("Loading...");
+//        l.getStyle().getBgTransparency();
+//        cnt.addComponent(l);
+//        cnt.addComponent(ip);
+//        d.addComponent(BorderLayout.CENTER, cnt);
+//        d.setTransitionInAnimator(CommonTransitions.createEmpty());
+//        d.setTransitionOutAnimator(CommonTransitions.createEmpty());
+//        d.showPacked(BorderLayout.CENTER, false);
+//        d.setBackCommand(c);
+//
+//
+//        String url = "http://mobile-hook.com/api/antm/picgallery.php";
+//        request.setUrl(url);
+//        //request.setContentType("application/json");
+////        request.addRequestHeader("X-Parse-Application-Id", appId);
+////        request.addRequestHeader("X-Parse-REST-API-Key", restApiKey);
+//        request.setFailSilently(true);//stops user from seeing error message on failure
+//        request.setPost(false);
+//        request.setDuplicateSupported(true);
+//        request.setDisposeOnCompletion(d);
+//
+//
+//        //NetworkManager manager = NetworkManager.getInstance();
+//        manager.start();
+//        manager.setTimeout(5000);
+//        manager.addToQueueAndWait(request);
+
+        final ConnectionRequest request = new ConnectionRequest() {
             @Override
             protected void readResponse(InputStream input) throws IOException {
-
-                status = String.valueOf(getResposeCode());
+                status = String.valueOf(getResponseCode());
                 //System.out.println("The respone code is : " + status);
 
                 JSONParser p = new JSONParser();
                 InputStreamReader inp = new InputStreamReader(input);
                 Hashtable h = p.parse(inp);
-                galleryImages = (Vector) h.get("root");
-                // System.out.println(h.toString());
-//                String username = h.get("username").toString();
-//                String email = h.get("email").toString();
-//                appUser = new AppUsers(username, email);
-
-                // System.out.println(contestantsFetched.toString());
+                //System.out.println(h.get("data").toString());
+                // regResponse = (String) h.get("response");
+                galleryImages = new Vector<Hashtable>();
+                Hashtable hash = (Hashtable) h.get("pagination");
+                nextURL = (String) hash.get("next_url");
+                System.out.println("pagination : " + hash);
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                Vector fetchedData = (Vector) h.get("data");
+                for (int i = 0; i < fetchedData.size(); i++) {
+                    Hashtable object = (Hashtable) fetchedData.elementAt(i);
+                    Hashtable h3 = (Hashtable) object.get("images");
+                    galleryImages.add((Hashtable) h3.get("standard_resolution"));
+                    System.out.println("standard resolution : " + h3.get("standard_resolution"));
+                }
+//                regResponse = Util.readToString(input);
+                //System.out.println("The response is " + fetchedData);
 
 
             }
         };
 
         final NetworkManager manager = NetworkManager.getInstance();
+
         Command c = new Command("Cancel") {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                manager.killAndWait(request); //               evt.consume();
+                manager.killAndWait(request);
                 //evt.consume();
             }
         };
@@ -379,7 +453,7 @@ public class StateMachine extends StateMachineBase {
         d.setDialogUIID("Container");
         d.setLayout(new BorderLayout());
         Container cnt = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        Label l = new Label("Loading...");
+        Label l = new Label("populating gallery");
         l.getStyle().getBgTransparency();
         cnt.addComponent(l);
         cnt.addComponent(ip);
@@ -390,20 +464,17 @@ public class StateMachine extends StateMachineBase {
         d.setBackCommand(c);
 
 
-        String url = "http://mobile-hook.com/api/antm/picgallery.php";
+
+        String url = "https://api.instagram.com/v1/users/self/media/recent/?access_token=286661039.eab64d9.3c206753fe1440cf9d45fdfa99d68a11";
         request.setUrl(url);
-        //request.setContentType("application/json");
-//        request.addRequestHeader("X-Parse-Application-Id", appId);
-//        request.addRequestHeader("X-Parse-REST-API-Key", restApiKey);
         request.setFailSilently(true);//stops user from seeing error message on failure
         request.setPost(false);
+        request.setHttpMethod("GET");
+        request.setTimeout(3000);
         request.setDuplicateSupported(true);
         request.setDisposeOnCompletion(d);
 
-
-        //NetworkManager manager = NetworkManager.getInstance();
         manager.start();
-        manager.setTimeout(5000);
         manager.addToQueueAndWait(request);
     }
 
@@ -422,7 +493,7 @@ public class StateMachine extends StateMachineBase {
             protected void readResponse(InputStream input) throws IOException {
 
 
-                status = String.valueOf(getResposeCode());
+                status = String.valueOf(getResponseCode());
                 //System.out.println("The respone code is : " + status);
 
                 JSONParser p = new JSONParser();
@@ -498,7 +569,7 @@ public class StateMachine extends StateMachineBase {
             protected void readResponse(InputStream input) throws IOException {
 
 
-                status = String.valueOf(getResposeCode());
+                status = String.valueOf(getResponseCode());
                 //System.out.println("The respone code is : " + status);
 
                 JSONParser p = new JSONParser();
@@ -564,9 +635,7 @@ public class StateMachine extends StateMachineBase {
         request.setPost(true);
         request.setDuplicateSupported(true);
         request.setDisposeOnCompletion(d);
-
-
-        //NetworkManager manager = NetworkManager.getInstance();
+        
         manager.start();
         manager.setTimeout(5000);
         manager.addToQueueAndWait(request);
@@ -577,11 +646,13 @@ public class StateMachine extends StateMachineBase {
 
         Display.getInstance().lockOrientation(true);
         //Storage.getInstance().deleteStorageFile("Contestant");
-        Image oluchiImage = fetchResourceFile().getImage("topmodel.png");
-        f.getStyle().setBgImage(oluchiImage);
-        f.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        Image oluchiImage = fetchResourceFile().getImage("splashscreen.jpg");
+        findSplashLogo(f).setIcon(oluchiImage.scaledWidth(Display.getInstance().getDisplayWidth()));
+//        f.getStyle().setBgImage(oluchiImage);
+//        f.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        
 
-        Storage.getInstance().deleteStorageFile("AntmUser");
+        //Storage.getInstance().deleteStorageFile("AntmUser");
     }
 
     @Override
@@ -600,7 +671,7 @@ public class StateMachine extends StateMachineBase {
         if (("".equals(username)) || ("".equals(email)) || ("".equals(number))) {
             Dialog.show("", "all fields are required", "OK", null);
         } else if (("choose your country".equals(country)) || (("----Others".equals(country)) && ("".equals((String) findOtherCountryTextField(c.getComponentForm()).getText())))) {
-            Dialog.show("", "you are yet to choose your country", "OK", null);
+            Dialog.show("", "you have not chosen your country", "OK", null);
         } else {
 //(("choose your country".equals(country)) || (("----Others".equals(country)) && ("".equals((String)findOtherCountryTextField(c.getComponentForm()).getText()))))
             if (("----Others".equals(country)) || ("".equals(country))) {
@@ -710,7 +781,6 @@ public class StateMachine extends StateMachineBase {
             }
         });
 
-        // System.out.println("j is " + j);
         return c;
     }
 
@@ -719,9 +789,10 @@ public class StateMachine extends StateMachineBase {
         Display.getInstance().unlockOrientation();//lockOrientation(true);
         //Storage.getInstance().clearStorage();
         f.setScrollable(false);
-        Image oluchiImage = fetchResourceFile().getImage("new_3.png");
-        f.getStyle().setBgImage(oluchiImage);
-        f.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        Image oluchiImage = fetchResourceFile().getImage("oluchi.png");
+        findLabelButton(f).setIcon(oluchiImage.scaledWidth(Display.getInstance().getDisplayWidth() - 20));
+//        findContainer1(f).getStyle().setBgImage(oluchiImage);
+//        findContainer1(f).getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
 
         Command close = new Command("Exit") {
             @Override
@@ -732,11 +803,9 @@ public class StateMachine extends StateMachineBase {
             }
         };
 
-
         f.getMenuBar().addCommand(close);
-        //search          
-
-        Image scout = fetchResourceFile().getImage("scouting.jpg");
+       
+        //Image scout = fetchResourceFile().getImage("scouting.jpg");
         Image contest = fetchResourceFile().getImage("contestants.jpg");
         Image newsB = fetchResourceFile().getImage("news_2.jpg");
         Image gallerypix = fetchResourceFile().getImage("gallery_2.jpg");
@@ -744,9 +813,9 @@ public class StateMachine extends StateMachineBase {
 
         Vector<Hashtable> buttonLogos = new Vector<Hashtable>();
 
-        Hashtable h1 = new Hashtable();
-        h1.put("logo", scout);
-        h1.put("name", "Scouting");
+//        Hashtable h1 = new Hashtable();
+//        h1.put("logo", scout);
+//        h1.put("name", "Scouting");
 
         Hashtable h2 = new Hashtable();
         h2.put("logo", contest);
@@ -764,13 +833,13 @@ public class StateMachine extends StateMachineBase {
         h5.put("logo", partnerB);
         h5.put("name", "Partners");
 
-        buttonLogos.add(h1);
+        //buttonLogos.add(h1);
         buttonLogos.add(h2);
         buttonLogos.add(h3);
         buttonLogos.add(h4);
         buttonLogos.add(h5);
 
-        Container c1 = findContainer4(f);
+        Container c1 = findContainer(f);
 
         for (int i = 0; i < buttonLogos.size(); i++) {
             Hashtable hashtable = buttonLogos.get(i);
@@ -784,22 +853,24 @@ public class StateMachine extends StateMachineBase {
         Resources res = fetchResourceFile();
         Container c = createContainer(res, "MenuButtonsPix");
         Button b = findMenuButton(c);
-        b.setIcon(i.scaledWidth(Display.getInstance().getDisplayWidth() / 6));
+        b.setIcon(i.scaledWidth(Display.getInstance().getDisplayWidth() / 5));
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
                 if ("News".equals(nm)) {
-                    if ((allNews == null) || (allNews.isEmpty())) {
-                        fetchAllNews();
-                        if ((!(status == null)) && ("200".equals(status)) && (!(allNews == null)) && (!allNews.isEmpty())) {
-                            showForm("NewsView", null);
-                        } else {
-                            Dialog.show("oh!!! dear", "could not fetch News", "OK", null);
-                        }
-                    } else {
-                        showForm("NewsView", null);
-                    }
+                    showForm("NewsView", null);
+//                    if ((allNews == null) || (allNews.isEmpty())) {
+//                        
+//                        fetchAllNews();
+//                        if ((!(status == null)) && ("200".equals(status)) && (!(allNews == null)) && (!allNews.isEmpty())) {
+//                            showForm("NewsView", null);
+//                        } else {
+//                            Dialog.show("oh!!! dear", "could not fetch News", "OK", null);
+//                        }
+//                    } else {
+//                        showForm("NewsView", null);
+//                    }
 
                 } else if ("Scouting".equals(nm)) {
                     //Dialog.show("selected", "Scouting things", "OK", null);
@@ -834,7 +905,7 @@ public class StateMachine extends StateMachineBase {
                         if (!(status == null) && ("200".equals(status)) && (!(galleryImages == null)) && (!galleryImages.isEmpty())) {
                             showForm("Gallery", null);
                         } else {
-                            Dialog.show("oh!!! dear", "could not download Gallery", "OK", null);
+                            Dialog.show("oh!!! dear", "could not fetch images", "OK", null);
                         }
                     } else {
                         showForm("Gallery", null);
@@ -888,10 +959,15 @@ public class StateMachine extends StateMachineBase {
 //        f.getStyle().setBgImage(bgwhite);
 //        f.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
 
-        Image cbc = fetchResourceFile().getImage("cbs_logo.png");
+        Image cbc = fetchResourceFile().getImage("cbs.png");
         Image mnet = fetchResourceFile().getImage("mnet.png");
-        Image afmag = fetchResourceFile().getImage("afmag.png");
-        Image saA = fetchResourceFile().getImage("southAfrica.png");
+        Image afmag = fetchResourceFile().getImage("african magic.png");
+        Image etisalat = fetchResourceFile().getImage("etisalat.jpg");
+        Image gentTouch = fetchResourceFile().getImage("NaturesGentleTouch.png");
+        Image pAndG = fetchResourceFile().getImage("P&G.png");
+        Image snap = fetchResourceFile().getImage("snapp.png");
+        Image verve = fetchResourceFile().getImage("VERVE.png");
+        Image sat = fetchResourceFile().getImage("SAT.png");
         Image dna = fetchResourceFile().getImage("dna.png");
 
         Vector<Hashtable> partners = new Vector<Hashtable>();
@@ -909,20 +985,45 @@ public class StateMachine extends StateMachineBase {
         h3.put("name", "Africa Magic");
 
         Hashtable h4 = new Hashtable();
-        h4.put("logo", saA);
+        h4.put("logo", sat);
         h4.put("name", "South Africa Tourism");
 
         Hashtable h5 = new Hashtable();
         h5.put("logo", dna);
         h5.put("name", "DNA Model managers");
+        
+        Hashtable h6 = new Hashtable();
+        h6.put("logo", etisalat);
+        h6.put("name", "Etisalat");
+        
+        Hashtable h7 = new Hashtable();
+        h7.put("logo", gentTouch);
+        h7.put("name", "Nature's gentle Touch");
+        
+        Hashtable h8 = new Hashtable();
+        h8.put("logo", pAndG);
+        h8.put("name", "P and G");
+        
+        Hashtable h9 = new Hashtable();
+        h9.put("logo", snap);
+        h9.put("name", "Snap");
+        
+        Hashtable h10 = new Hashtable();
+        h10.put("logo", verve);
+        h10.put("name", "Verve");
 
-        partners.add(h1);
+        partners.add(h6);
         partners.add(h2);
         partners.add(h3);
         partners.add(h4);
         partners.add(h5);
+        partners.add(h9);
+        partners.add(h1);
+        partners.add(h8);
+        partners.add(h10);     
+        partners.add(h7);     
+        
         findContainer(f).removeAll();
-
         for (int i = 0; i < partners.size(); i++) {
             Hashtable hashtable = partners.get(i);
             Image image = (Image) hashtable.get("logo");
@@ -937,8 +1038,8 @@ public class StateMachine extends StateMachineBase {
         Resources res = fetchResourceFile();
         Container c = createContainer(res, "EachPartner");
         // c.removeAll();
-        findPartnerLogo(c).setIcon(i.scaledWidth(Display.getInstance().getDisplayWidth() / 5));
-        findPartnerName(c).setText(name);
+        findPartnerLogo(c).setIcon(i.scaledWidth(Display.getInstance().getDisplayWidth() / 4));
+        //findPartnerName(c).setText(name);
         return c;
     }
 
@@ -984,12 +1085,25 @@ public class StateMachine extends StateMachineBase {
         f.getStyle().setBgImage(bgwhite);
         f.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
 
-        Container c = findContainer1(f);
-        for (int i = 0; i < allNews.size(); i++) {
-            Hashtable hashtable = allNews.get(i);
-            //System.out.println("Object number "+i+" = "+hashtable);
-            c.addComponent(addNews((String) hashtable.get("title"), (String) hashtable.get("details")));
-        }
+        findContainer1(f).removeAll();
+        BrowserComponent bcw = new BrowserComponent();        
+        bcw.setURL("http://m.facebook.com/ANTMAFRICA");
+        
+        findContainer1(f).addComponent(BorderLayout.CENTER, bcw);
+        
+        Dialog d = new Dialog();
+        TextArea t = new TextArea();
+        t.setEditable(false);
+        t.setText("please wait, it takes a bit of time to load news page");
+        d.addComponent(t);
+        d.setTimeout(3000);
+        d.show();
+//        Container c = findContainer1(f);
+//        for (int i = 0; i < allNews.size(); i++) {
+//            Hashtable hashtable = allNews.get(i);
+//            //System.out.println("Object number "+i+" = "+hashtable);
+//            c.addComponent(addNews((String) hashtable.get("title"), (String) hashtable.get("details")));
+//        }
     }
 
     private Container addNews(final String title, final String details) {
@@ -1125,7 +1239,7 @@ public class StateMachine extends StateMachineBase {
         Image btnShare = fetchResourceFile().getImage("share_icon.png");
 
         ShareButton sb = new ShareButton();
-        sb.setTextToShare("ANTM AFRICA: "+news.getTitle()+". see details here https://www.facebook.com/ANTMAfrica");
+        sb.setTextToShare("ANTM AFRICA: " + news.getTitle() + ". see details here https://www.facebook.com/ANTMAfrica");
         //System.out.println("ANTM AFRICA: "+news.getTitle()+". see details here https://www.facebook.com/ANTMAfrica");
         sb.setIcon(btnShare);
         sb.setUIID("Label");
@@ -1387,115 +1501,115 @@ public class StateMachine extends StateMachineBase {
 
         for (int i = 0; i < galleryImages.size(); i++) {
             Hashtable hashtable = galleryImages.get(i);
-            findContainer(f).addComponent(addGalleryPix(hashtable.get("cid").toString(), hashtable.get("imageurl").toString()));
+            findContainer(f).addComponent(addGalleryPix(hashtable.get("url").toString(),i,f));
         }
     }
 
-    private Container addGalleryPix(final String cid, final String imageurl) {
+    private Container addGalleryPix(final String imageurl, int i, final Form f) {
         Resources res = fetchResourceFile();
         Container c = createContainer(res, "EachGalleryPixZoom");
 
         final Button b = findGalleryImage(c);
-        b.setText(cid);
-        b.setTextPosition(2);
-        b.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-
-                final Label l = new Label();
-                if (Display.getInstance().getDisplayWidth() > Display.getInstance().getDisplayHeight()) {
-                    // l.setIcon(b.getIcon().scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
-                    //ImageDownloadService.createImageToStorage(imageurl + ";deviceside=true", l, cid, new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
-                    final ConnectionRequest request = new ConnectionRequest() {
-                        @Override
-                        protected void readResponse(InputStream input) throws IOException {
-
-                            EncodedImage image = EncodedImage.create(input);
-                            l.setIcon(image.scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
-
-                        }
-                    };
-
-
-                    final NetworkManager manager = NetworkManager.getInstance();
-
-
-                    //String url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false";
-                    request.setUrl(imageurl);
-
-                    request.setFailSilently(true);//stops user from seeing error message on failure
-                    request.setPost(false);
-                    request.setDuplicateSupported(true);
-
-                    manager.start();
-                    manager.setTimeout(5000);
-                    manager.addToQueue(request);
-
-                } else {
-                    // l.setIcon(b.getIcon().scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-                    //ImageDownloadService.createImageToStorage(imageurl + ";deviceside=true", l, cid, new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-                    final ConnectionRequest request = new ConnectionRequest() {
-                        @Override
-                        protected void readResponse(InputStream input) throws IOException {
-
-                            EncodedImage image = EncodedImage.create(input);
-                            l.setIcon(image.scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
-
-                        }
-                    };
-
-
-                    final NetworkManager manager = NetworkManager.getInstance();
-
-
-                    //String url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false";
-                    request.setUrl(imageurl);
-
-                    request.setFailSilently(true);//stops user from seeing error message on failure
-                    request.setPost(false);
-                    request.setDuplicateSupported(true);
-
-                    manager.start();
-                    manager.setTimeout(5000);
-                    manager.addToQueue(request);
-
-                }
-                //l.setIcon(b.getIcon().scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-                //ImageDownloadService.createImageToStorage(imageurl, l, cid, new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-                Command[] cmds = new Command[2];
-                cmds[0] = new Command("OK") {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                    }
-                };
-                cmds[1] = new Command("View All") {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        showForm("ZoomedGallery", null);
-                    }
-                };
-//                cmds[2] = new Command("Share") {
+        //b.setText(cid);
+       // b.setTextPosition(2);
+//        b.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent evt) {
+//
+//                final Label l = new Label();
+//                if (Display.getInstance().getDisplayWidth() > Display.getInstance().getDisplayHeight()) {
+//                    // l.setIcon(b.getIcon().scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
+//                    //ImageDownloadService.createImageToStorage(imageurl + ";deviceside=true", l, cid, new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
+//                    final ConnectionRequest request = new ConnectionRequest() {
+//                        @Override
+//                        protected void readResponse(InputStream input) throws IOException {
+//
+//                            EncodedImage image = EncodedImage.create(input);
+//                            l.setIcon(image.scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
+//
+//                        }
+//                    };
+//
+//
+//                    final NetworkManager manager = NetworkManager.getInstance();
+//
+//
+//                    //String url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false";
+//                    request.setUrl(imageurl);
+//
+//                    request.setFailSilently(true);//stops user from seeing error message on failure
+//                    request.setPost(false);
+//                    request.setDuplicateSupported(true);
+//
+//                    manager.start();
+//                    manager.setTimeout(5000);
+//                    manager.addToQueue(request);
+//
+//                } else {
+//                    // l.setIcon(b.getIcon().scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
+//                    //ImageDownloadService.createImageToStorage(imageurl + ";deviceside=true", l, cid, new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
+//                    final ConnectionRequest request = new ConnectionRequest() {
+//                        @Override
+//                        protected void readResponse(InputStream input) throws IOException {
+//
+//                            EncodedImage image = EncodedImage.create(input);
+//                            l.setIcon(image.scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
+//
+//                        }
+//                    };
+//
+//
+//                    final NetworkManager manager = NetworkManager.getInstance();
+//
+//
+//                    //String url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false";
+//                    request.setUrl(imageurl);
+//
+//                    request.setFailSilently(true);//stops user from seeing error message on failure
+//                    request.setPost(false);
+//                    request.setDuplicateSupported(true);
+//
+//                    manager.start();
+//                    manager.setTimeout(5000);
+//                    manager.addToQueue(request);
+//
+//                }
+//                //l.setIcon(b.getIcon().scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
+//                //ImageDownloadService.createImageToStorage(imageurl, l, cid, new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
+//                Command[] cmds = new Command[2];
+//                cmds[0] = new Command("OK") {
 //                    @Override
 //                    public void actionPerformed(ActionEvent evt) {
-//                        //Image btnShare = fetchResourceFile().getImage("share_icon.png");
-////
-////                        ShareButton sb = new ShareButton();
-////                        sb.setImageToShare(imageurl, "image/jpeg");//TextToShare(news.getDetails());
-//                        //sb.setIcon(btnShare);
-//                        //sb.setUIID("Label");
-//                        Display.getInstance().share(imageurl, null, "image/jpeg");
 //                    }
 //                };
-                Dialog.show(cid, l, cmds);
-            }
-        });
-        
+//                cmds[1] = new Command("View All") {
+//                    @Override
+//                    public void actionPerformed(ActionEvent evt) {
+//                        showForm("ZoomedGallery", null);
+//                    }
+//                };
+////                cmds[2] = new Command("Share") {
+////                    @Override
+////                    public void actionPerformed(ActionEvent evt) {
+////                        //Image btnShare = fetchResourceFile().getImage("share_icon.png");
+//////
+//////                        ShareButton sb = new ShareButton();
+//////                        sb.setImageToShare(imageurl, "image/jpeg");//TextToShare(news.getDetails());
+////                        //sb.setIcon(btnShare);
+////                        //sb.setUIID("Label");
+////                        Display.getInstance().share(imageurl, null, "image/jpeg");
+////                    }
+////                };
+//               // Dialog.show(cid, l, cmds);
+//            }
+//        });
+
         final ConnectionRequest request = new ConnectionRequest() {
             @Override
             protected void readResponse(InputStream input) throws IOException {
 
                 EncodedImage image = EncodedImage.create(input);
-                b.setIcon(image.scaledWidth(Display.getInstance().getDisplayWidth() / 4));
-
+                b.setIcon(image.scaledWidth(Display.getInstance().getDisplayWidth()));
+                f.revalidate();
             }
         };
 
