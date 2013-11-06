@@ -34,14 +34,9 @@ public abstract class StateMachineBase extends UIBuilder {
     public Container startApp(Resources res, String resPath, boolean loadTheme) {
         initVars();
         UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
-        UIBuilder.registerCustomComponent("MapComponent", com.codename1.maps.MapComponent.class);
         UIBuilder.registerCustomComponent("ComboBox", com.codename1.ui.ComboBox.class);
-        UIBuilder.registerCustomComponent("MultiButton", com.codename1.components.MultiButton.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
-        UIBuilder.registerCustomComponent("ShareButton", com.codename1.components.ShareButton.class);
         UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
-        UIBuilder.registerCustomComponent("TextArea", com.codename1.ui.TextArea.class);
-        UIBuilder.registerCustomComponent("List", com.codename1.ui.List.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
         UIBuilder.registerCustomComponent("Container", com.codename1.ui.Container.class);
         if(loadTheme) {
@@ -79,14 +74,9 @@ public abstract class StateMachineBase extends UIBuilder {
     public Container createWidget(Resources res, String resPath, boolean loadTheme) {
         initVars();
         UIBuilder.registerCustomComponent("Button", com.codename1.ui.Button.class);
-        UIBuilder.registerCustomComponent("MapComponent", com.codename1.maps.MapComponent.class);
         UIBuilder.registerCustomComponent("ComboBox", com.codename1.ui.ComboBox.class);
-        UIBuilder.registerCustomComponent("MultiButton", com.codename1.components.MultiButton.class);
         UIBuilder.registerCustomComponent("Form", com.codename1.ui.Form.class);
-        UIBuilder.registerCustomComponent("ShareButton", com.codename1.components.ShareButton.class);
         UIBuilder.registerCustomComponent("Label", com.codename1.ui.Label.class);
-        UIBuilder.registerCustomComponent("TextArea", com.codename1.ui.TextArea.class);
-        UIBuilder.registerCustomComponent("List", com.codename1.ui.List.class);
         UIBuilder.registerCustomComponent("TextField", com.codename1.ui.TextField.class);
         UIBuilder.registerCustomComponent("Container", com.codename1.ui.Container.class);
         if(loadTheme) {
@@ -162,14 +152,14 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Container findEachScoutPlace(Component root) {
-        return (com.codename1.ui.Container)findByName("EachScoutPlace", root);
+    public com.codename1.ui.Label findPartnerLogo(Component root) {
+        return (com.codename1.ui.Label)findByName("partnerLogo", root);
     }
 
-    public com.codename1.ui.Container findEachScoutPlace() {
-        com.codename1.ui.Container cmp = (com.codename1.ui.Container)findByName("EachScoutPlace", Display.getInstance().getCurrent());
+    public com.codename1.ui.Label findPartnerLogo() {
+        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("partnerLogo", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Container)findByName("EachScoutPlace", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.Label)findByName("partnerLogo", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -234,18 +224,6 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Container findNewsRenderer(Component root) {
-        return (com.codename1.ui.Container)findByName("NewsRenderer", root);
-    }
-
-    public com.codename1.ui.Container findNewsRenderer() {
-        com.codename1.ui.Container cmp = (com.codename1.ui.Container)findByName("NewsRenderer", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Container)findByName("NewsRenderer", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
     public com.codename1.ui.ComboBox findCountryComboBox(Component root) {
         return (com.codename1.ui.ComboBox)findByName("countryComboBox", root);
     }
@@ -254,18 +232,6 @@ public abstract class StateMachineBase extends UIBuilder {
         com.codename1.ui.ComboBox cmp = (com.codename1.ui.ComboBox)findByName("countryComboBox", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
             cmp = (com.codename1.ui.ComboBox)findByName("countryComboBox", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Label findSelectedContestantCountry(Component root) {
-        return (com.codename1.ui.Label)findByName("selectedContestantCountry", root);
-    }
-
-    public com.codename1.ui.Label findSelectedContestantCountry() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("selectedContestantCountry", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("selectedContestantCountry", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -282,18 +248,6 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Container findScoutContainer(Component root) {
-        return (com.codename1.ui.Container)findByName("scoutContainer", root);
-    }
-
-    public com.codename1.ui.Container findScoutContainer() {
-        com.codename1.ui.Container cmp = (com.codename1.ui.Container)findByName("scoutContainer", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Container)findByName("scoutContainer", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
     public com.codename1.ui.Button findCancelCreate(Component root) {
         return (com.codename1.ui.Button)findByName("cancelCreate", root);
     }
@@ -302,18 +256,6 @@ public abstract class StateMachineBase extends UIBuilder {
         com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("cancelCreate", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
             cmp = (com.codename1.ui.Button)findByName("cancelCreate", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Label findLabel1(Component root) {
-        return (com.codename1.ui.Label)findByName("Label1", root);
-    }
-
-    public com.codename1.ui.Label findLabel1() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Label1", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("Label1", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -330,14 +272,14 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Container findContestantsContainer(Component root) {
-        return (com.codename1.ui.Container)findByName("contestantsContainer", root);
+    public com.codename1.ui.Label findLabel1(Component root) {
+        return (com.codename1.ui.Label)findByName("Label1", root);
     }
 
-    public com.codename1.ui.Container findContestantsContainer() {
-        com.codename1.ui.Container cmp = (com.codename1.ui.Container)findByName("contestantsContainer", Display.getInstance().getCurrent());
+    public com.codename1.ui.Label findLabel1() {
+        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Label1", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Container)findByName("contestantsContainer", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.Label)findByName("Label1", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -366,18 +308,6 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Label findLabel2(Component root) {
-        return (com.codename1.ui.Label)findByName("Label2", root);
-    }
-
-    public com.codename1.ui.Label findLabel2() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Label2", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("Label2", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
     public com.codename1.ui.Container findEachPartner(Component root) {
         return (com.codename1.ui.Container)findByName("EachPartner", root);
     }
@@ -390,242 +320,14 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Label findSelectedContestantAge(Component root) {
-        return (com.codename1.ui.Label)findByName("selectedContestantAge", root);
+    public com.codename1.ui.Label findLabel2(Component root) {
+        return (com.codename1.ui.Label)findByName("Label2", root);
     }
 
-    public com.codename1.ui.Label findSelectedContestantAge() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("selectedContestantAge", Display.getInstance().getCurrent());
+    public com.codename1.ui.Label findLabel2() {
+        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Label2", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("selectedContestantAge", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Label findContestantHeight(Component root) {
-        return (com.codename1.ui.Label)findByName("contestantHeight", root);
-    }
-
-    public com.codename1.ui.Label findContestantHeight() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("contestantHeight", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("contestantHeight", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Container findContestantPix(Component root) {
-        return (com.codename1.ui.Container)findByName("ContestantPix", root);
-    }
-
-    public com.codename1.ui.Container findContestantPix() {
-        com.codename1.ui.Container cmp = (com.codename1.ui.Container)findByName("ContestantPix", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Container)findByName("ContestantPix", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Label findSelectedCountryCode(Component root) {
-        return (com.codename1.ui.Label)findByName("selectedCountryCode", root);
-    }
-
-    public com.codename1.ui.Label findSelectedCountryCode() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("selectedCountryCode", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("selectedCountryCode", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.TextField findNewUserEmailTextField(Component root) {
-        return (com.codename1.ui.TextField)findByName("newUserEmailTextField", root);
-    }
-
-    public com.codename1.ui.TextField findNewUserEmailTextField() {
-        com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("newUserEmailTextField", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.TextField)findByName("newUserEmailTextField", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Label findLabel7(Component root) {
-        return (com.codename1.ui.Label)findByName("Label7", root);
-    }
-
-    public com.codename1.ui.Label findLabel7() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Label7", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("Label7", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Container findContainer11(Component root) {
-        return (com.codename1.ui.Container)findByName("Container11", root);
-    }
-
-    public com.codename1.ui.Container findContainer11() {
-        com.codename1.ui.Container cmp = (com.codename1.ui.Container)findByName("Container11", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Container)findByName("Container11", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Label findLabel5(Component root) {
-        return (com.codename1.ui.Label)findByName("Label5", root);
-    }
-
-    public com.codename1.ui.Label findLabel5() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("Label5", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("Label5", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Button findSelectedContestantPix(Component root) {
-        return (com.codename1.ui.Button)findByName("selectedContestantPix", root);
-    }
-
-    public com.codename1.ui.Button findSelectedContestantPix() {
-        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("selectedContestantPix", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Button)findByName("selectedContestantPix", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.maps.MapComponent findScoutMapComponent(Component root) {
-        return (com.codename1.maps.MapComponent)findByName("scoutMapComponent", root);
-    }
-
-    public com.codename1.maps.MapComponent findScoutMapComponent() {
-        com.codename1.maps.MapComponent cmp = (com.codename1.maps.MapComponent)findByName("scoutMapComponent", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.maps.MapComponent)findByName("scoutMapComponent", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Label findContestantName(Component root) {
-        return (com.codename1.ui.Label)findByName("contestantName", root);
-    }
-
-    public com.codename1.ui.Label findContestantName() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("contestantName", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("contestantName", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.components.ShareButton findGalleryImageToZoom(Component root) {
-        return (com.codename1.components.ShareButton)findByName("galleryImageToZoom", root);
-    }
-
-    public com.codename1.components.ShareButton findGalleryImageToZoom() {
-        com.codename1.components.ShareButton cmp = (com.codename1.components.ShareButton)findByName("galleryImageToZoom", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.components.ShareButton)findByName("galleryImageToZoom", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.TextField findAppUserPhoneNumberTextField(Component root) {
-        return (com.codename1.ui.TextField)findByName("appUserPhoneNumberTextField", root);
-    }
-
-    public com.codename1.ui.TextField findAppUserPhoneNumberTextField() {
-        com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("appUserPhoneNumberTextField", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.TextField)findByName("appUserPhoneNumberTextField", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Button findNewsRendererNewsTitle(Component root) {
-        return (com.codename1.ui.Button)findByName("newsRendererNewsTitle", root);
-    }
-
-    public com.codename1.ui.Button findNewsRendererNewsTitle() {
-        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("newsRendererNewsTitle", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Button)findByName("newsRendererNewsTitle", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Label findPartnerLogo(Component root) {
-        return (com.codename1.ui.Label)findByName("partnerLogo", root);
-    }
-
-    public com.codename1.ui.Label findPartnerLogo() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("partnerLogo", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("partnerLogo", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Container findEachGalleryPix(Component root) {
-        return (com.codename1.ui.Container)findByName("EachGalleryPix", root);
-    }
-
-    public com.codename1.ui.Container findEachGalleryPix() {
-        com.codename1.ui.Container cmp = (com.codename1.ui.Container)findByName("EachGalleryPix", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Container)findByName("EachGalleryPix", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.TextArea findTextArea(Component root) {
-        return (com.codename1.ui.TextArea)findByName("TextArea", root);
-    }
-
-    public com.codename1.ui.TextArea findTextArea() {
-        com.codename1.ui.TextArea cmp = (com.codename1.ui.TextArea)findByName("TextArea", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.TextArea)findByName("TextArea", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Label findSelectedContestantName(Component root) {
-        return (com.codename1.ui.Label)findByName("selectedContestantName", root);
-    }
-
-    public com.codename1.ui.Label findSelectedContestantName() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("selectedContestantName", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("selectedContestantName", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.TextArea findSelectedContestantAboutMe(Component root) {
-        return (com.codename1.ui.TextArea)findByName("selectedContestantAboutMe", root);
-    }
-
-    public com.codename1.ui.TextArea findSelectedContestantAboutMe() {
-        com.codename1.ui.TextArea cmp = (com.codename1.ui.TextArea)findByName("selectedContestantAboutMe", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.TextArea)findByName("selectedContestantAboutMe", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Button findVoteSelectedContestant(Component root) {
-        return (com.codename1.ui.Button)findByName("voteSelectedContestant", root);
-    }
-
-    public com.codename1.ui.Button findVoteSelectedContestant() {
-        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("voteSelectedContestant", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Button)findByName("voteSelectedContestant", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.Label)findByName("Label2", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -642,42 +344,6 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Label findContestantCountry(Component root) {
-        return (com.codename1.ui.Label)findByName("contestantCountry", root);
-    }
-
-    public com.codename1.ui.Label findContestantCountry() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("contestantCountry", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("contestantCountry", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.List findList(Component root) {
-        return (com.codename1.ui.List)findByName("List", root);
-    }
-
-    public com.codename1.ui.List findList() {
-        com.codename1.ui.List cmp = (com.codename1.ui.List)findByName("List", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.List)findByName("List", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.Button findContestantPicture(Component root) {
-        return (com.codename1.ui.Button)findByName("contestantPicture", root);
-    }
-
-    public com.codename1.ui.Button findContestantPicture() {
-        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("contestantPicture", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Button)findByName("contestantPicture", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
     public com.codename1.ui.Container findContainer(Component root) {
         return (com.codename1.ui.Container)findByName("Container", root);
     }
@@ -690,14 +356,14 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Label findSelectedPixImage(Component root) {
-        return (com.codename1.ui.Label)findByName("selectedPixImage", root);
+    public com.codename1.ui.Button findContestantPicture(Component root) {
+        return (com.codename1.ui.Button)findByName("contestantPicture", root);
     }
 
-    public com.codename1.ui.Label findSelectedPixImage() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("selectedPixImage", Display.getInstance().getCurrent());
+    public com.codename1.ui.Button findContestantPicture() {
+        com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("contestantPicture", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("selectedPixImage", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.Button)findByName("contestantPicture", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -726,14 +392,38 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Label findContestantImage(Component root) {
-        return (com.codename1.ui.Label)findByName("contestantImage", root);
+    public com.codename1.ui.Label findSelectedCountryCode(Component root) {
+        return (com.codename1.ui.Label)findByName("selectedCountryCode", root);
     }
 
-    public com.codename1.ui.Label findContestantImage() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("contestantImage", Display.getInstance().getCurrent());
+    public com.codename1.ui.Label findSelectedCountryCode() {
+        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("selectedCountryCode", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("contestantImage", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.Label)findByName("selectedCountryCode", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.TextField findNewUserEmailTextField(Component root) {
+        return (com.codename1.ui.TextField)findByName("newUserEmailTextField", root);
+    }
+
+    public com.codename1.ui.TextField findNewUserEmailTextField() {
+        com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("newUserEmailTextField", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.TextField)findByName("newUserEmailTextField", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.Container findContainer11(Component root) {
+        return (com.codename1.ui.Container)findByName("Container11", root);
+    }
+
+    public com.codename1.ui.Container findContainer11() {
+        com.codename1.ui.Container cmp = (com.codename1.ui.Container)findByName("Container11", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Container)findByName("Container11", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -762,30 +452,6 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.Label findContestantAge(Component root) {
-        return (com.codename1.ui.Label)findByName("contestantAge", root);
-    }
-
-    public com.codename1.ui.Label findContestantAge() {
-        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("contestantAge", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.Label)findByName("contestantAge", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.ui.TextArea findNewsDetailTextArea(Component root) {
-        return (com.codename1.ui.TextArea)findByName("newsDetailTextArea", root);
-    }
-
-    public com.codename1.ui.TextArea findNewsDetailTextArea() {
-        com.codename1.ui.TextArea cmp = (com.codename1.ui.TextArea)findByName("newsDetailTextArea", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.TextArea)findByName("newsDetailTextArea", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
     public com.codename1.ui.Button findGalleryImage(Component root) {
         return (com.codename1.ui.Button)findByName("galleryImage", root);
     }
@@ -794,6 +460,18 @@ public abstract class StateMachineBase extends UIBuilder {
         com.codename1.ui.Button cmp = (com.codename1.ui.Button)findByName("galleryImage", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
             cmp = (com.codename1.ui.Button)findByName("galleryImage", aboutToShowThisContainer);
+        }
+        return cmp;
+    }
+
+    public com.codename1.ui.Label findContestantName(Component root) {
+        return (com.codename1.ui.Label)findByName("contestantName", root);
+    }
+
+    public com.codename1.ui.Label findContestantName() {
+        com.codename1.ui.Label cmp = (com.codename1.ui.Label)findByName("contestantName", Display.getInstance().getCurrent());
+        if(cmp == null && aboutToShowThisContainer != null) {
+            cmp = (com.codename1.ui.Label)findByName("contestantName", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -810,26 +488,14 @@ public abstract class StateMachineBase extends UIBuilder {
         return cmp;
     }
 
-    public com.codename1.ui.TextField findNewsTitleTextField(Component root) {
-        return (com.codename1.ui.TextField)findByName("newsTitleTextField", root);
+    public com.codename1.ui.TextField findAppUserPhoneNumberTextField(Component root) {
+        return (com.codename1.ui.TextField)findByName("appUserPhoneNumberTextField", root);
     }
 
-    public com.codename1.ui.TextField findNewsTitleTextField() {
-        com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("newsTitleTextField", Display.getInstance().getCurrent());
+    public com.codename1.ui.TextField findAppUserPhoneNumberTextField() {
+        com.codename1.ui.TextField cmp = (com.codename1.ui.TextField)findByName("appUserPhoneNumberTextField", Display.getInstance().getCurrent());
         if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.ui.TextField)findByName("newsTitleTextField", aboutToShowThisContainer);
-        }
-        return cmp;
-    }
-
-    public com.codename1.components.MultiButton findScoutAddress(Component root) {
-        return (com.codename1.components.MultiButton)findByName("scoutAddress", root);
-    }
-
-    public com.codename1.components.MultiButton findScoutAddress() {
-        com.codename1.components.MultiButton cmp = (com.codename1.components.MultiButton)findByName("scoutAddress", Display.getInstance().getCurrent());
-        if(cmp == null && aboutToShowThisContainer != null) {
-            cmp = (com.codename1.components.MultiButton)findByName("scoutAddress", aboutToShowThisContainer);
+            cmp = (com.codename1.ui.TextField)findByName("appUserPhoneNumberTextField", aboutToShowThisContainer);
         }
         return cmp;
     }
@@ -847,12 +513,6 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
     protected void exitForm(Form f) {
-        if("NewsRenderer".equals(f.getName())) {
-            exitNewsRenderer(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AppRegister".equals(f.getName())) {
             exitAppRegister(f);
             aboutToShowThisContainer = null;
@@ -871,26 +531,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedContestant".equals(f.getName())) {
-            exitSelectedContestant(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachScoutPlace".equals(f.getName())) {
-            exitEachScoutPlace(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("NewsView".equals(f.getName())) {
             exitNewsView(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("selectedScoutVenue".equals(f.getName())) {
-            exitSelectedScoutVenue(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -901,38 +543,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("TestImageGallery".equals(f.getName())) {
-            exitTestImageGallery(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ScoutingPlaces".equals(f.getName())) {
-            exitScoutingPlaces(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AnodaRenderer".equals(f.getName())) {
             exitAnodaRenderer(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachNews".equals(f.getName())) {
-            exitEachNews(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachGalleryPix".equals(f.getName())) {
-            exitEachGalleryPix(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ZoomedGallery".equals(f.getName())) {
-            exitZoomedGallery(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -945,6 +557,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
         if("Menu".equals(f.getName())) {
             exitMenu(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
+        if("VideoView".equals(f.getName())) {
+            exitVideoView(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -967,29 +585,13 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedPix".equals(f.getName())) {
-            exitSelectedPix(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("Main".equals(f.getName())) {
             exitMain(f);
             aboutToShowThisContainer = null;
             return;
         }
 
-        if("ContestantPix".equals(f.getName())) {
-            exitContestantPix(f);
-            aboutToShowThisContainer = null;
             return;
-        }
-
-            return;
-    }
-
-
-    protected void exitNewsRenderer(Form f) {
     }
 
 
@@ -1005,19 +607,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void exitSelectedContestant(Form f) {
-    }
-
-
-    protected void exitEachScoutPlace(Form f) {
-    }
-
-
     protected void exitNewsView(Form f) {
-    }
-
-
-    protected void exitSelectedScoutVenue(Form f) {
     }
 
 
@@ -1025,27 +615,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void exitTestImageGallery(Form f) {
-    }
-
-
-    protected void exitScoutingPlaces(Form f) {
-    }
-
-
     protected void exitAnodaRenderer(Form f) {
-    }
-
-
-    protected void exitEachNews(Form f) {
-    }
-
-
-    protected void exitEachGalleryPix(Form f) {
-    }
-
-
-    protected void exitZoomedGallery(Form f) {
     }
 
 
@@ -1054,6 +624,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void exitMenu(Form f) {
+    }
+
+
+    protected void exitVideoView(Form f) {
     }
 
 
@@ -1069,25 +643,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void exitSelectedPix(Form f) {
-    }
-
-
     protected void exitMain(Form f) {
-    }
-
-
-    protected void exitContestantPix(Form f) {
     }
 
     protected void beforeShow(Form f) {
     aboutToShowThisContainer = f;
-        if("NewsRenderer".equals(f.getName())) {
-            beforeNewsRenderer(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AppRegister".equals(f.getName())) {
             beforeAppRegister(f);
             aboutToShowThisContainer = null;
@@ -1106,26 +666,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedContestant".equals(f.getName())) {
-            beforeSelectedContestant(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachScoutPlace".equals(f.getName())) {
-            beforeEachScoutPlace(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("NewsView".equals(f.getName())) {
             beforeNewsView(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("selectedScoutVenue".equals(f.getName())) {
-            beforeSelectedScoutVenue(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1136,38 +678,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("TestImageGallery".equals(f.getName())) {
-            beforeTestImageGallery(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ScoutingPlaces".equals(f.getName())) {
-            beforeScoutingPlaces(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AnodaRenderer".equals(f.getName())) {
             beforeAnodaRenderer(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachNews".equals(f.getName())) {
-            beforeEachNews(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachGalleryPix".equals(f.getName())) {
-            beforeEachGalleryPix(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ZoomedGallery".equals(f.getName())) {
-            beforeZoomedGallery(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1180,6 +692,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
         if("Menu".equals(f.getName())) {
             beforeMenu(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
+        if("VideoView".equals(f.getName())) {
+            beforeVideoView(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1202,29 +720,13 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedPix".equals(f.getName())) {
-            beforeSelectedPix(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("Main".equals(f.getName())) {
             beforeMain(f);
             aboutToShowThisContainer = null;
             return;
         }
 
-        if("ContestantPix".equals(f.getName())) {
-            beforeContestantPix(f);
-            aboutToShowThisContainer = null;
             return;
-        }
-
-            return;
-    }
-
-
-    protected void beforeNewsRenderer(Form f) {
     }
 
 
@@ -1240,19 +742,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeSelectedContestant(Form f) {
-    }
-
-
-    protected void beforeEachScoutPlace(Form f) {
-    }
-
-
     protected void beforeNewsView(Form f) {
-    }
-
-
-    protected void beforeSelectedScoutVenue(Form f) {
     }
 
 
@@ -1260,27 +750,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeTestImageGallery(Form f) {
-    }
-
-
-    protected void beforeScoutingPlaces(Form f) {
-    }
-
-
     protected void beforeAnodaRenderer(Form f) {
-    }
-
-
-    protected void beforeEachNews(Form f) {
-    }
-
-
-    protected void beforeEachGalleryPix(Form f) {
-    }
-
-
-    protected void beforeZoomedGallery(Form f) {
     }
 
 
@@ -1289,6 +759,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void beforeMenu(Form f) {
+    }
+
+
+    protected void beforeVideoView(Form f) {
     }
 
 
@@ -1304,25 +778,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeSelectedPix(Form f) {
-    }
-
-
     protected void beforeMain(Form f) {
-    }
-
-
-    protected void beforeContestantPix(Form f) {
     }
 
     protected void beforeShowContainer(Container c) {
         aboutToShowThisContainer = c;
-        if("NewsRenderer".equals(c.getName())) {
-            beforeContainerNewsRenderer(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AppRegister".equals(c.getName())) {
             beforeContainerAppRegister(c);
             aboutToShowThisContainer = null;
@@ -1341,26 +801,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedContestant".equals(c.getName())) {
-            beforeContainerSelectedContestant(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachScoutPlace".equals(c.getName())) {
-            beforeContainerEachScoutPlace(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("NewsView".equals(c.getName())) {
             beforeContainerNewsView(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("selectedScoutVenue".equals(c.getName())) {
-            beforeContainerSelectedScoutVenue(c);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1371,38 +813,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("TestImageGallery".equals(c.getName())) {
-            beforeContainerTestImageGallery(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ScoutingPlaces".equals(c.getName())) {
-            beforeContainerScoutingPlaces(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AnodaRenderer".equals(c.getName())) {
             beforeContainerAnodaRenderer(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachNews".equals(c.getName())) {
-            beforeContainerEachNews(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachGalleryPix".equals(c.getName())) {
-            beforeContainerEachGalleryPix(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ZoomedGallery".equals(c.getName())) {
-            beforeContainerZoomedGallery(c);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1415,6 +827,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
         if("Menu".equals(c.getName())) {
             beforeContainerMenu(c);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
+        if("VideoView".equals(c.getName())) {
+            beforeContainerVideoView(c);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1437,29 +855,13 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedPix".equals(c.getName())) {
-            beforeContainerSelectedPix(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("Main".equals(c.getName())) {
             beforeContainerMain(c);
             aboutToShowThisContainer = null;
             return;
         }
 
-        if("ContestantPix".equals(c.getName())) {
-            beforeContainerContestantPix(c);
-            aboutToShowThisContainer = null;
             return;
-        }
-
-            return;
-    }
-
-
-    protected void beforeContainerNewsRenderer(Container c) {
     }
 
 
@@ -1475,19 +877,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeContainerSelectedContestant(Container c) {
-    }
-
-
-    protected void beforeContainerEachScoutPlace(Container c) {
-    }
-
-
     protected void beforeContainerNewsView(Container c) {
-    }
-
-
-    protected void beforeContainerSelectedScoutVenue(Container c) {
     }
 
 
@@ -1495,27 +885,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeContainerTestImageGallery(Container c) {
-    }
-
-
-    protected void beforeContainerScoutingPlaces(Container c) {
-    }
-
-
     protected void beforeContainerAnodaRenderer(Container c) {
-    }
-
-
-    protected void beforeContainerEachNews(Container c) {
-    }
-
-
-    protected void beforeContainerEachGalleryPix(Container c) {
-    }
-
-
-    protected void beforeContainerZoomedGallery(Container c) {
     }
 
 
@@ -1524,6 +894,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void beforeContainerMenu(Container c) {
+    }
+
+
+    protected void beforeContainerVideoView(Container c) {
     }
 
 
@@ -1539,24 +913,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void beforeContainerSelectedPix(Container c) {
-    }
-
-
     protected void beforeContainerMain(Container c) {
     }
 
-
-    protected void beforeContainerContestantPix(Container c) {
-    }
-
     protected void postShow(Form f) {
-        if("NewsRenderer".equals(f.getName())) {
-            postNewsRenderer(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AppRegister".equals(f.getName())) {
             postAppRegister(f);
             aboutToShowThisContainer = null;
@@ -1575,26 +935,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedContestant".equals(f.getName())) {
-            postSelectedContestant(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachScoutPlace".equals(f.getName())) {
-            postEachScoutPlace(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("NewsView".equals(f.getName())) {
             postNewsView(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("selectedScoutVenue".equals(f.getName())) {
-            postSelectedScoutVenue(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1605,38 +947,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("TestImageGallery".equals(f.getName())) {
-            postTestImageGallery(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ScoutingPlaces".equals(f.getName())) {
-            postScoutingPlaces(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AnodaRenderer".equals(f.getName())) {
             postAnodaRenderer(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachNews".equals(f.getName())) {
-            postEachNews(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachGalleryPix".equals(f.getName())) {
-            postEachGalleryPix(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ZoomedGallery".equals(f.getName())) {
-            postZoomedGallery(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1649,6 +961,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
         if("Menu".equals(f.getName())) {
             postMenu(f);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
+        if("VideoView".equals(f.getName())) {
+            postVideoView(f);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1671,29 +989,13 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedPix".equals(f.getName())) {
-            postSelectedPix(f);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("Main".equals(f.getName())) {
             postMain(f);
             aboutToShowThisContainer = null;
             return;
         }
 
-        if("ContestantPix".equals(f.getName())) {
-            postContestantPix(f);
-            aboutToShowThisContainer = null;
             return;
-        }
-
-            return;
-    }
-
-
-    protected void postNewsRenderer(Form f) {
     }
 
 
@@ -1709,19 +1011,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postSelectedContestant(Form f) {
-    }
-
-
-    protected void postEachScoutPlace(Form f) {
-    }
-
-
     protected void postNewsView(Form f) {
-    }
-
-
-    protected void postSelectedScoutVenue(Form f) {
     }
 
 
@@ -1729,27 +1019,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postTestImageGallery(Form f) {
-    }
-
-
-    protected void postScoutingPlaces(Form f) {
-    }
-
-
     protected void postAnodaRenderer(Form f) {
-    }
-
-
-    protected void postEachNews(Form f) {
-    }
-
-
-    protected void postEachGalleryPix(Form f) {
-    }
-
-
-    protected void postZoomedGallery(Form f) {
     }
 
 
@@ -1758,6 +1028,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void postMenu(Form f) {
+    }
+
+
+    protected void postVideoView(Form f) {
     }
 
 
@@ -1773,24 +1047,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postSelectedPix(Form f) {
-    }
-
-
     protected void postMain(Form f) {
     }
 
-
-    protected void postContestantPix(Form f) {
-    }
-
     protected void postShowContainer(Container c) {
-        if("NewsRenderer".equals(c.getName())) {
-            postContainerNewsRenderer(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AppRegister".equals(c.getName())) {
             postContainerAppRegister(c);
             aboutToShowThisContainer = null;
@@ -1809,26 +1069,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedContestant".equals(c.getName())) {
-            postContainerSelectedContestant(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachScoutPlace".equals(c.getName())) {
-            postContainerEachScoutPlace(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("NewsView".equals(c.getName())) {
             postContainerNewsView(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("selectedScoutVenue".equals(c.getName())) {
-            postContainerSelectedScoutVenue(c);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1839,38 +1081,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("TestImageGallery".equals(c.getName())) {
-            postContainerTestImageGallery(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ScoutingPlaces".equals(c.getName())) {
-            postContainerScoutingPlaces(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AnodaRenderer".equals(c.getName())) {
             postContainerAnodaRenderer(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachNews".equals(c.getName())) {
-            postContainerEachNews(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachGalleryPix".equals(c.getName())) {
-            postContainerEachGalleryPix(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ZoomedGallery".equals(c.getName())) {
-            postContainerZoomedGallery(c);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1883,6 +1095,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
         if("Menu".equals(c.getName())) {
             postContainerMenu(c);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
+        if("VideoView".equals(c.getName())) {
+            postContainerVideoView(c);
             aboutToShowThisContainer = null;
             return;
         }
@@ -1905,29 +1123,13 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedPix".equals(c.getName())) {
-            postContainerSelectedPix(c);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("Main".equals(c.getName())) {
             postContainerMain(c);
             aboutToShowThisContainer = null;
             return;
         }
 
-        if("ContestantPix".equals(c.getName())) {
-            postContainerContestantPix(c);
-            aboutToShowThisContainer = null;
             return;
-        }
-
-            return;
-    }
-
-
-    protected void postContainerNewsRenderer(Container c) {
     }
 
 
@@ -1943,19 +1145,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postContainerSelectedContestant(Container c) {
-    }
-
-
-    protected void postContainerEachScoutPlace(Container c) {
-    }
-
-
     protected void postContainerNewsView(Container c) {
-    }
-
-
-    protected void postContainerSelectedScoutVenue(Container c) {
     }
 
 
@@ -1963,27 +1153,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postContainerTestImageGallery(Container c) {
-    }
-
-
-    protected void postContainerScoutingPlaces(Container c) {
-    }
-
-
     protected void postContainerAnodaRenderer(Container c) {
-    }
-
-
-    protected void postContainerEachNews(Container c) {
-    }
-
-
-    protected void postContainerEachGalleryPix(Container c) {
-    }
-
-
-    protected void postContainerZoomedGallery(Container c) {
     }
 
 
@@ -1992,6 +1162,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void postContainerMenu(Container c) {
+    }
+
+
+    protected void postContainerVideoView(Container c) {
     }
 
 
@@ -2007,24 +1181,10 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void postContainerSelectedPix(Container c) {
-    }
-
-
     protected void postContainerMain(Container c) {
     }
 
-
-    protected void postContainerContestantPix(Container c) {
-    }
-
     protected void onCreateRoot(String rootName) {
-        if("NewsRenderer".equals(rootName)) {
-            onCreateNewsRenderer();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AppRegister".equals(rootName)) {
             onCreateAppRegister();
             aboutToShowThisContainer = null;
@@ -2043,26 +1203,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedContestant".equals(rootName)) {
-            onCreateSelectedContestant();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachScoutPlace".equals(rootName)) {
-            onCreateEachScoutPlace();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("NewsView".equals(rootName)) {
             onCreateNewsView();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("selectedScoutVenue".equals(rootName)) {
-            onCreateSelectedScoutVenue();
             aboutToShowThisContainer = null;
             return;
         }
@@ -2073,38 +1215,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("TestImageGallery".equals(rootName)) {
-            onCreateTestImageGallery();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ScoutingPlaces".equals(rootName)) {
-            onCreateScoutingPlaces();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AnodaRenderer".equals(rootName)) {
             onCreateAnodaRenderer();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachNews".equals(rootName)) {
-            onCreateEachNews();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachGalleryPix".equals(rootName)) {
-            onCreateEachGalleryPix();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ZoomedGallery".equals(rootName)) {
-            onCreateZoomedGallery();
             aboutToShowThisContainer = null;
             return;
         }
@@ -2117,6 +1229,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
         if("Menu".equals(rootName)) {
             onCreateMenu();
+            aboutToShowThisContainer = null;
+            return;
+        }
+
+        if("VideoView".equals(rootName)) {
+            onCreateVideoView();
             aboutToShowThisContainer = null;
             return;
         }
@@ -2139,29 +1257,13 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedPix".equals(rootName)) {
-            onCreateSelectedPix();
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("Main".equals(rootName)) {
             onCreateMain();
             aboutToShowThisContainer = null;
             return;
         }
 
-        if("ContestantPix".equals(rootName)) {
-            onCreateContestantPix();
-            aboutToShowThisContainer = null;
             return;
-        }
-
-            return;
-    }
-
-
-    protected void onCreateNewsRenderer() {
     }
 
 
@@ -2177,19 +1279,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void onCreateSelectedContestant() {
-    }
-
-
-    protected void onCreateEachScoutPlace() {
-    }
-
-
     protected void onCreateNewsView() {
-    }
-
-
-    protected void onCreateSelectedScoutVenue() {
     }
 
 
@@ -2197,27 +1287,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void onCreateTestImageGallery() {
-    }
-
-
-    protected void onCreateScoutingPlaces() {
-    }
-
-
     protected void onCreateAnodaRenderer() {
-    }
-
-
-    protected void onCreateEachNews() {
-    }
-
-
-    protected void onCreateEachGalleryPix() {
-    }
-
-
-    protected void onCreateZoomedGallery() {
     }
 
 
@@ -2226,6 +1296,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void onCreateMenu() {
+    }
+
+
+    protected void onCreateVideoView() {
     }
 
 
@@ -2241,25 +1315,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void onCreateSelectedPix() {
-    }
-
-
     protected void onCreateMain() {
-    }
-
-
-    protected void onCreateContestantPix() {
     }
 
     protected Hashtable getFormState(Form f) {
         Hashtable h = super.getFormState(f);
-        if("NewsRenderer".equals(f.getName())) {
-            getStateNewsRenderer(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
         if("AppRegister".equals(f.getName())) {
             getStateAppRegister(f, h);
             aboutToShowThisContainer = null;
@@ -2278,26 +1338,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return h;
         }
 
-        if("SelectedContestant".equals(f.getName())) {
-            getStateSelectedContestant(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
-        if("EachScoutPlace".equals(f.getName())) {
-            getStateEachScoutPlace(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
         if("NewsView".equals(f.getName())) {
             getStateNewsView(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
-        if("selectedScoutVenue".equals(f.getName())) {
-            getStateSelectedScoutVenue(f, h);
             aboutToShowThisContainer = null;
             return h;
         }
@@ -2308,38 +1350,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return h;
         }
 
-        if("TestImageGallery".equals(f.getName())) {
-            getStateTestImageGallery(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
-        if("ScoutingPlaces".equals(f.getName())) {
-            getStateScoutingPlaces(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
         if("AnodaRenderer".equals(f.getName())) {
             getStateAnodaRenderer(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
-        if("EachNews".equals(f.getName())) {
-            getStateEachNews(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
-        if("EachGalleryPix".equals(f.getName())) {
-            getStateEachGalleryPix(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
-        if("ZoomedGallery".equals(f.getName())) {
-            getStateZoomedGallery(f, h);
             aboutToShowThisContainer = null;
             return h;
         }
@@ -2352,6 +1364,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
         if("Menu".equals(f.getName())) {
             getStateMenu(f, h);
+            aboutToShowThisContainer = null;
+            return h;
+        }
+
+        if("VideoView".equals(f.getName())) {
+            getStateVideoView(f, h);
             aboutToShowThisContainer = null;
             return h;
         }
@@ -2374,29 +1392,13 @@ public abstract class StateMachineBase extends UIBuilder {
             return h;
         }
 
-        if("SelectedPix".equals(f.getName())) {
-            getStateSelectedPix(f, h);
-            aboutToShowThisContainer = null;
-            return h;
-        }
-
         if("Main".equals(f.getName())) {
             getStateMain(f, h);
             aboutToShowThisContainer = null;
             return h;
         }
 
-        if("ContestantPix".equals(f.getName())) {
-            getStateContestantPix(f, h);
-            aboutToShowThisContainer = null;
             return h;
-        }
-
-            return h;
-    }
-
-
-    protected void getStateNewsRenderer(Form f, Hashtable h) {
     }
 
 
@@ -2412,19 +1414,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void getStateSelectedContestant(Form f, Hashtable h) {
-    }
-
-
-    protected void getStateEachScoutPlace(Form f, Hashtable h) {
-    }
-
-
     protected void getStateNewsView(Form f, Hashtable h) {
-    }
-
-
-    protected void getStateSelectedScoutVenue(Form f, Hashtable h) {
     }
 
 
@@ -2432,27 +1422,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void getStateTestImageGallery(Form f, Hashtable h) {
-    }
-
-
-    protected void getStateScoutingPlaces(Form f, Hashtable h) {
-    }
-
-
     protected void getStateAnodaRenderer(Form f, Hashtable h) {
-    }
-
-
-    protected void getStateEachNews(Form f, Hashtable h) {
-    }
-
-
-    protected void getStateEachGalleryPix(Form f, Hashtable h) {
-    }
-
-
-    protected void getStateZoomedGallery(Form f, Hashtable h) {
     }
 
 
@@ -2461,6 +1431,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void getStateMenu(Form f, Hashtable h) {
+    }
+
+
+    protected void getStateVideoView(Form f, Hashtable h) {
     }
 
 
@@ -2476,25 +1450,11 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void getStateSelectedPix(Form f, Hashtable h) {
-    }
-
-
     protected void getStateMain(Form f, Hashtable h) {
-    }
-
-
-    protected void getStateContestantPix(Form f, Hashtable h) {
     }
 
     protected void setFormState(Form f, Hashtable state) {
         super.setFormState(f, state);
-        if("NewsRenderer".equals(f.getName())) {
-            setStateNewsRenderer(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AppRegister".equals(f.getName())) {
             setStateAppRegister(f, state);
             aboutToShowThisContainer = null;
@@ -2513,26 +1473,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedContestant".equals(f.getName())) {
-            setStateSelectedContestant(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachScoutPlace".equals(f.getName())) {
-            setStateEachScoutPlace(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("NewsView".equals(f.getName())) {
             setStateNewsView(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("selectedScoutVenue".equals(f.getName())) {
-            setStateSelectedScoutVenue(f, state);
             aboutToShowThisContainer = null;
             return;
         }
@@ -2543,38 +1485,8 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("TestImageGallery".equals(f.getName())) {
-            setStateTestImageGallery(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ScoutingPlaces".equals(f.getName())) {
-            setStateScoutingPlaces(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("AnodaRenderer".equals(f.getName())) {
             setStateAnodaRenderer(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachNews".equals(f.getName())) {
-            setStateEachNews(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("EachGalleryPix".equals(f.getName())) {
-            setStateEachGalleryPix(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
-        if("ZoomedGallery".equals(f.getName())) {
-            setStateZoomedGallery(f, state);
             aboutToShowThisContainer = null;
             return;
         }
@@ -2587,6 +1499,12 @@ public abstract class StateMachineBase extends UIBuilder {
 
         if("Menu".equals(f.getName())) {
             setStateMenu(f, state);
+            aboutToShowThisContainer = null;
+            return;
+        }
+
+        if("VideoView".equals(f.getName())) {
+            setStateVideoView(f, state);
             aboutToShowThisContainer = null;
             return;
         }
@@ -2609,29 +1527,13 @@ public abstract class StateMachineBase extends UIBuilder {
             return;
         }
 
-        if("SelectedPix".equals(f.getName())) {
-            setStateSelectedPix(f, state);
-            aboutToShowThisContainer = null;
-            return;
-        }
-
         if("Main".equals(f.getName())) {
             setStateMain(f, state);
             aboutToShowThisContainer = null;
             return;
         }
 
-        if("ContestantPix".equals(f.getName())) {
-            setStateContestantPix(f, state);
-            aboutToShowThisContainer = null;
             return;
-        }
-
-            return;
-    }
-
-
-    protected void setStateNewsRenderer(Form f, Hashtable state) {
     }
 
 
@@ -2647,19 +1549,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void setStateSelectedContestant(Form f, Hashtable state) {
-    }
-
-
-    protected void setStateEachScoutPlace(Form f, Hashtable state) {
-    }
-
-
     protected void setStateNewsView(Form f, Hashtable state) {
-    }
-
-
-    protected void setStateSelectedScoutVenue(Form f, Hashtable state) {
     }
 
 
@@ -2667,27 +1557,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void setStateTestImageGallery(Form f, Hashtable state) {
-    }
-
-
-    protected void setStateScoutingPlaces(Form f, Hashtable state) {
-    }
-
-
     protected void setStateAnodaRenderer(Form f, Hashtable state) {
-    }
-
-
-    protected void setStateEachNews(Form f, Hashtable state) {
-    }
-
-
-    protected void setStateEachGalleryPix(Form f, Hashtable state) {
-    }
-
-
-    protected void setStateZoomedGallery(Form f, Hashtable state) {
     }
 
 
@@ -2696,6 +1566,10 @@ public abstract class StateMachineBase extends UIBuilder {
 
 
     protected void setStateMenu(Form f, Hashtable state) {
+    }
+
+
+    protected void setStateVideoView(Form f, Hashtable state) {
     }
 
 
@@ -2711,15 +1585,7 @@ public abstract class StateMachineBase extends UIBuilder {
     }
 
 
-    protected void setStateSelectedPix(Form f, Hashtable state) {
-    }
-
-
     protected void setStateMain(Form f, Hashtable state) {
-    }
-
-
-    protected void setStateContestantPix(Form f, Hashtable state) {
     }
 
     protected boolean setListModel(List cmp) {
@@ -2727,17 +1593,10 @@ public abstract class StateMachineBase extends UIBuilder {
         if("countryComboBox".equals(listName)) {
             return initListModelCountryComboBox(cmp);
         }
-        if("List".equals(listName)) {
-            return initListModelList(cmp);
-        }
         return super.setListModel(cmp);
     }
 
     protected boolean initListModelCountryComboBox(List cmp) {
-        return false;
-    }
-
-    protected boolean initListModelList(List cmp) {
         return false;
     }
 
@@ -2750,12 +1609,6 @@ public abstract class StateMachineBase extends UIBuilder {
             c = c.getParent().getLeadParent();
         }
         if(rootContainerName == null) return;
-        if(rootContainerName.equals("NewsRenderer")) {
-            if("newsRendererNewsTitle".equals(c.getName())) {
-                onNewsRenderer_NewsRendererNewsTitleAction(c, event);
-                return;
-            }
-        }
         if(rootContainerName.equals("AppRegister")) {
             if("newUserUsernameTextField".equals(c.getName())) {
                 onAppRegister_NewUserUsernameTextFieldAction(c, event);
@@ -2792,59 +1645,9 @@ public abstract class StateMachineBase extends UIBuilder {
                 return;
             }
         }
-        if(rootContainerName.equals("SelectedContestant")) {
-            if("selectedContestantPix".equals(c.getName())) {
-                onSelectedContestant_SelectedContestantPixAction(c, event);
-                return;
-            }
-            if("selectedContestantAboutMe".equals(c.getName())) {
-                onSelectedContestant_SelectedContestantAboutMeAction(c, event);
-                return;
-            }
-            if("voteSelectedContestant".equals(c.getName())) {
-                onSelectedContestant_VoteSelectedContestantAction(c, event);
-                return;
-            }
-        }
-        if(rootContainerName.equals("EachScoutPlace")) {
-            if("scoutAddress".equals(c.getName())) {
-                onEachScoutPlace_ScoutAddressAction(c, event);
-                return;
-            }
-        }
-        if(rootContainerName.equals("TestImageGallery")) {
-            if("contestantPicture".equals(c.getName())) {
-                onTestImageGallery_ContestantPictureAction(c, event);
-                return;
-            }
-            if("galleryImage".equals(c.getName())) {
-                onTestImageGallery_GalleryImageAction(c, event);
-                return;
-            }
-            if("List".equals(c.getName())) {
-                onTestImageGallery_ListAction(c, event);
-                return;
-            }
-        }
         if(rootContainerName.equals("AnodaRenderer")) {
             if("galleryImage".equals(c.getName())) {
                 onAnodaRenderer_GalleryImageAction(c, event);
-                return;
-            }
-        }
-        if(rootContainerName.equals("EachNews")) {
-            if("newsTitleTextField".equals(c.getName())) {
-                onEachNews_NewsTitleTextFieldAction(c, event);
-                return;
-            }
-            if("newsDetailTextArea".equals(c.getName())) {
-                onEachNews_NewsDetailTextAreaAction(c, event);
-                return;
-            }
-        }
-        if(rootContainerName.equals("EachGalleryPix")) {
-            if("galleryImageToZoom".equals(c.getName())) {
-                onEachGalleryPix_GalleryImageToZoomAction(c, event);
                 return;
             }
         }
@@ -2866,22 +1669,7 @@ public abstract class StateMachineBase extends UIBuilder {
                 return;
             }
         }
-        if(rootContainerName.equals("SelectedPix")) {
-            if("TextArea".equals(c.getName())) {
-                onSelectedPix_TextAreaAction(c, event);
-                return;
-            }
-        }
-        if(rootContainerName.equals("ContestantPix")) {
-            if("contestantPicture".equals(c.getName())) {
-                onContestantPix_ContestantPictureAction(c, event);
-                return;
-            }
-        }
     }
-
-      protected void onNewsRenderer_NewsRendererNewsTitleAction(Component c, ActionEvent event) {
-      }
 
       protected void onAppRegister_NewUserUsernameTextFieldAction(Component c, ActionEvent event) {
       }
@@ -2907,37 +1695,7 @@ public abstract class StateMachineBase extends UIBuilder {
       protected void onEachContestant_ContestantPictureAction(Component c, ActionEvent event) {
       }
 
-      protected void onSelectedContestant_SelectedContestantPixAction(Component c, ActionEvent event) {
-      }
-
-      protected void onSelectedContestant_SelectedContestantAboutMeAction(Component c, ActionEvent event) {
-      }
-
-      protected void onSelectedContestant_VoteSelectedContestantAction(Component c, ActionEvent event) {
-      }
-
-      protected void onEachScoutPlace_ScoutAddressAction(Component c, ActionEvent event) {
-      }
-
-      protected void onTestImageGallery_ContestantPictureAction(Component c, ActionEvent event) {
-      }
-
-      protected void onTestImageGallery_GalleryImageAction(Component c, ActionEvent event) {
-      }
-
-      protected void onTestImageGallery_ListAction(Component c, ActionEvent event) {
-      }
-
       protected void onAnodaRenderer_GalleryImageAction(Component c, ActionEvent event) {
-      }
-
-      protected void onEachNews_NewsTitleTextFieldAction(Component c, ActionEvent event) {
-      }
-
-      protected void onEachNews_NewsDetailTextAreaAction(Component c, ActionEvent event) {
-      }
-
-      protected void onEachGalleryPix_GalleryImageToZoomAction(Component c, ActionEvent event) {
       }
 
       protected void onMenu_LabelButtonAction(Component c, ActionEvent event) {
@@ -2947,12 +1705,6 @@ public abstract class StateMachineBase extends UIBuilder {
       }
 
       protected void onEachGalleryPixZoom_GalleryImageAction(Component c, ActionEvent event) {
-      }
-
-      protected void onSelectedPix_TextAreaAction(Component c, ActionEvent event) {
-      }
-
-      protected void onContestantPix_ContestantPictureAction(Component c, ActionEvent event) {
       }
 
 }

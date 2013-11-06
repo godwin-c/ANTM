@@ -76,6 +76,7 @@ public class StateMachine extends StateMachineBase {
     String appId = "GiCVsxB2ZrOcUaTMXHl1JXIiBYKbmSgB6fpEdrVn";
     String restApiKey = "SUk9g42zC9ZRHJYIFbisdKM7FRGckKV33gtq3QNh";
     String myKey = "AIzaSyB7t94-6U-G2PTWC_czQ-LwsNMbUaTqmO4";
+    private Object choiceNews;
 
     public StateMachine(String resFile) {
         super(resFile);
@@ -635,7 +636,7 @@ public class StateMachine extends StateMachineBase {
         request.setPost(true);
         request.setDuplicateSupported(true);
         request.setDisposeOnCompletion(d);
-        
+
         manager.start();
         manager.setTimeout(5000);
         manager.addToQueueAndWait(request);
@@ -650,7 +651,7 @@ public class StateMachine extends StateMachineBase {
         findSplashLogo(f).setIcon(oluchiImage.scaledWidth(Display.getInstance().getDisplayWidth()));
 //        f.getStyle().setBgImage(oluchiImage);
 //        f.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
-        
+
 
         //Storage.getInstance().deleteStorageFile("AntmUser");
     }
@@ -683,86 +684,71 @@ public class StateMachine extends StateMachineBase {
                         //number = number.substring(1);
                         Dialog.show("", "country code not detected on the phone number. all country codes start with '+'", "OK", null);
                     } else {
-                        registerAppUser(username, email, enteredCountry, number);
-                        if (status == null || (!("200".equals(status)))) {
-                            Dialog.show("", "you may not be connected to the internet", "OK", null);
+                        if ((email.indexOf("@") < 0) || (email.indexOf(".", email.indexOf("@")) < 0)) {
+                            Dialog.show("Email", "invalid email format", "OK", null);
                         } else {
-                            status = "";
-                            if ("user registered".equals(regResponse)) {
-                                Hashtable data = new Hashtable();
-                                data.put("name", username);
-                                data.put("country", enteredCountry);
-                                data.put("email", email);
-                                data.put("phone", newNumber1);
+                            registerAppUser(username, email, enteredCountry, number);
+                            if (status == null || (!("200".equals(status)))) {
+                                Dialog.show("", "you may not be connected to the internet", "OK", null);
+                            } else {
+                                status = "";
+                                if ("user registered".equals(regResponse)) {
+                                    Hashtable data = new Hashtable();
+                                    data.put("name", username);
+                                    data.put("country", enteredCountry);
+                                    data.put("email", email);
+                                    data.put("phone", newNumber1);
 
-                                try {
-                                    Storage.getInstance().writeObject("AntmUser", data);
-                                } catch (Exception e) {
-                                    Dialog.show("Error !!!", "error reading Storage media " + "'" + e.getMessage() + "'", "OK", null);
+                                    try {
+                                        Storage.getInstance().writeObject("AntmUser", data);
+                                    } catch (Exception e) {
+                                        Dialog.show("Error !!!", "error reading Storage media " + "'" + e.getMessage() + "'", "OK", null);
+                                    }
+
+                                    Dialog.show("", "User " + "'" + username + "'" + " has been Created", "OK", null);
+                                    showForm("Menu", null);
+                                } else {
+                                    Dialog.show("", "could not create User", "OK", null);
                                 }
 
-                                Dialog.show("", "User " + "'" + username + "'" + " has been Created", "OK", null);
-                                showForm("Menu", null);
-                            } else {
-                                Dialog.show("", "could not create User", "OK", null);
                             }
-
                         }
+
                     }
 
                 }
             } else {
-                registerAppUser(username, email, country, newNumber1);
-                if (status == null || (!("200".equals(status)))) {
-                    Dialog.show("", "you may not be connected to the internet", "OK", null);
+
+                if ((email.indexOf("@") < 0) || (email.indexOf(".", email.indexOf("@")) < 0)) {
+                    Dialog.show("Email", "invalid email format", "OK", null);
                 } else {
-                    status = "";
-                    if ("user registered".equals(regResponse)) {
-                        Hashtable data = new Hashtable();
-                        data.put("name", username);
-                        data.put("country", country);
-                        data.put("email", email);
-                        data.put("phone", newNumber1);
-
-                        try {
-                            Storage.getInstance().writeObject("AntmUser", data);
-                        } catch (Exception e) {
-                            Dialog.show("Error !!!", "error reading Storage media " + "'" + e.getMessage() + "'", "OK", null);
-                        }
-
-                        Dialog.show("", "User " + "'" + username + "'" + " has been Created", "OK", null);
-                        showForm("Menu", null);
+                    registerAppUser(username, email, country, newNumber1);
+                    if (status == null || (!("200".equals(status)))) {
+                        Dialog.show("", "you may not be connected to the internet", "OK", null);
                     } else {
-                        Dialog.show("", "could not create User", "OK", null);
+                        status = "";
+                        if ("user registered".equals(regResponse)) {
+                            Hashtable data = new Hashtable();
+                            data.put("name", username);
+                            data.put("country", country);
+                            data.put("email", email);
+                            data.put("phone", newNumber1);
+
+                            try {
+                                Storage.getInstance().writeObject("AntmUser", data);
+                            } catch (Exception e) {
+                                Dialog.show("Error !!!", "error reading Storage media " + "'" + e.getMessage() + "'", "OK", null);
+                            }
+
+                            Dialog.show("", "User " + "'" + username + "'" + " has been Created", "OK", null);
+                            showForm("Menu", null);
+                        } else {
+                            Dialog.show("", "could not create User", "OK", null);
+                        }
                     }
                 }
             }
         }
-    }
-
-    private Container addContestantPix2(final String cid, final String imageURL, final String surname, final String firstname, final String age, String dob,
-            final String country, final String desc, final String height) {
-
-        Resources res = fetchResourceFile();
-        Container c = createContainer(res, "EachContestant");
-        Button b = findContestantPicture(c);
-        b.setText(firstname);
-        //b.getStyle().setBgImage(i.scaledWidth(Display.getInstance().getDisplayHeight() / 2));//Icon(i);
-        //b.setIcon(i.scaledWidth(Display.getInstance().getDisplayWidth() / 6));
-        //ImageDownloadService.createImageToStorage(dob, b, appId, photo, null);
-        ImageDownloadService.createImageToStorage(imageURL + ";deviceside=true", b, cid, new Dimension(Display.getInstance().getDisplayWidth() / 3, Display.getInstance().getDisplayHeight() / 3));
-        //b.setIcon(i.scaledWidth(40));
-        b.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                // System.out.println("you clicked " + surname + " " + firstname);
-                contestant = new Contestants(cid, surname, firstname, country, age, height, desc, imageURL);
-                showForm("SelectedContestant", null);
-                //Dialog.show("", desc, "OK", null);
-            }
-        });
-
-        //System.out.println("j is " + j);
-        return c;
     }
 
     private Container addContestantPix(final int j, Image i, String name) {
@@ -786,13 +772,12 @@ public class StateMachine extends StateMachineBase {
 
     @Override
     protected void beforeMenu(Form f) {
-        Display.getInstance().unlockOrientation();//lockOrientation(true);
+        Display.getInstance().lockOrientation(true);//lockOrientation(true);
         //Storage.getInstance().clearStorage();
         f.setScrollable(false);
         Image oluchiImage = fetchResourceFile().getImage("oluchi.png");
         findLabelButton(f).setIcon(oluchiImage.scaledWidth(Display.getInstance().getDisplayWidth() - 20));
-//        findContainer1(f).getStyle().setBgImage(oluchiImage);
-//        findContainer1(f).getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+
 
         Command close = new Command("Exit") {
             @Override
@@ -804,18 +789,25 @@ public class StateMachine extends StateMachineBase {
         };
 
         f.getMenuBar().addCommand(close);
-       
+
+        f.setBackCommand(new Command("Back") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                // super.actionPerformed(evt); //To change body of generated methods, choose Tools | Templates.
+                if (Display.getInstance().getCurrent() instanceof Dialog) {
+                    System.out.println("Yes");
+                    ((Dialog) Display.getInstance().getCurrent()).dispose();
+                }
+            }
+        });
         //Image scout = fetchResourceFile().getImage("scouting.jpg");
         Image contest = fetchResourceFile().getImage("contestants.jpg");
         Image newsB = fetchResourceFile().getImage("news_2.jpg");
         Image gallerypix = fetchResourceFile().getImage("gallery_2.jpg");
+        Image antmTV = fetchResourceFile().getImage("ANTM_TV_ICON.jpg");
         Image partnerB = fetchResourceFile().getImage("partners_2.jpg");
 
         Vector<Hashtable> buttonLogos = new Vector<Hashtable>();
-
-//        Hashtable h1 = new Hashtable();
-//        h1.put("logo", scout);
-//        h1.put("name", "Scouting");
 
         Hashtable h2 = new Hashtable();
         h2.put("logo", contest);
@@ -833,10 +825,15 @@ public class StateMachine extends StateMachineBase {
         h5.put("logo", partnerB);
         h5.put("name", "Partners");
 
+        Hashtable h6 = new Hashtable();
+        h6.put("logo", antmTV);
+        h6.put("name", "ANTMTV");
+
         //buttonLogos.add(h1);
         buttonLogos.add(h2);
         buttonLogos.add(h3);
         buttonLogos.add(h4);
+        buttonLogos.add(h6);
         buttonLogos.add(h5);
 
         Container c1 = findContainer(f);
@@ -853,51 +850,50 @@ public class StateMachine extends StateMachineBase {
         Resources res = fetchResourceFile();
         Container c = createContainer(res, "MenuButtonsPix");
         Button b = findMenuButton(c);
-        b.setIcon(i.scaledWidth(Display.getInstance().getDisplayWidth() / 5));
+        b.setIcon(i.scaledWidth(Display.getInstance().getDisplayWidth() / 6));
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+               
                 if ("News".equals(nm)) {
-                    showForm("NewsView", null);
-//                    if ((allNews == null) || (allNews.isEmpty())) {
-//                        
-//                        fetchAllNews();
-//                        if ((!(status == null)) && ("200".equals(status)) && (!(allNews == null)) && (!allNews.isEmpty())) {
-//                            showForm("NewsView", null);
-//                        } else {
-//                            Dialog.show("oh!!! dear", "could not fetch News", "OK", null);
-//                        }
-//                    } else {
-//                        showForm("NewsView", null);
-//                    }
+                    //Command cmds 
 
-                } else if ("Scouting".equals(nm)) {
-                    //Dialog.show("selected", "Scouting things", "OK", null);
-                    if ((scoutDates == null) || (scoutDates.isEmpty())) {
-                        fetchScoutDates();
-                        if ((!(status == null)) && ("200".equals(status))) {
-
-                            if ((scoutDates == null) || (scoutDates.isEmpty())) {
-                                Dialog.show("Yikes!!!", "data not fetched", "OK", null);
-                            } else {
-                                showForm("ScoutingPlaces", null);
-                            }
-
-                        } else {
-                            Dialog.show("oh!!! dear", "could not download Scouting places", "OK", null);
+                    Button eti = new Button("Etisalat SweepStakes");
+                    eti.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            choiceNews = "etisalat";
+                            showForm("NewsView", null);
                         }
-                    } else {
-                        showForm("ScoutingPlaces", null);
-                    }
+                    });
+                    Button ant = new Button("ANTM News");
+                    ant.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            choiceNews = "antm";
+                            showForm("NewsView", null);
+                        }
+                    });
+
+                    Command cmd = new Command("Cancel") {
+                        @Override
+                        public void actionPerformed(ActionEvent evt) {
+                            //super.actionPerformed(evt); //To change body of generated methods, choose Tools | Templates.
+                            ((Dialog) Display.getInstance().getCurrent()).dispose();
+                        }
+                    };
+
+                    Dialog dlg = new Dialog();
+                    dlg.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+                    dlg.addComponent(ant);
+                    dlg.addComponent(eti);
+                    dlg.addCommand(cmd);
+
+                    dlg.show();
+
+
                 } else if ("Contestants".equals(nm)) {
-                    fetchAllContestants();
-                    if (!(status == null) && ("200".equals(status))) {
-                        showForm("ContestantsView", null);
-                    } else {
-                        Dialog.show("oh!!! dear", "could not fetch All Contestants", "OK", null);
-                    }
-                    //  showForm("ContestantsView", null);
+                    showForm("ContestantsView", null);
+
                 } else if ("GalleryButton".equals(nm)) {
                     //Dialog.show("Gallery", "No data yet in Gallery", "OK", null);
                     if ((galleryImages == null) || (galleryImages.isEmpty())) {
@@ -912,6 +908,8 @@ public class StateMachine extends StateMachineBase {
                     }
                 } else if ("Partners".equals(nm)) {
                     showForm("PartnersView", null);
+                } else if ("ANTMTV".equals(nm)) {
+                    showForm("VideoView", null);
                 }
             }
         });
@@ -942,22 +940,6 @@ public class StateMachine extends StateMachineBase {
 
         findLabel(f).setText("Our Partners");
 
-//        Command close = new Command("Home") {
-//            @Override
-//            public void actionPerformed(ActionEvent evt) {
-//
-//                showForm("Menu", null);
-//                //Display.getInstance().exitApplication();
-//            }
-//        };
-//
-//
-//        f.getMenuBar().addCommand(close);
-//
-//        Image bgwhite = fetchResourceFile().getImage("WHITEBACKGROUND.png");
-//
-//        f.getStyle().setBgImage(bgwhite);
-//        f.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
 
         Image cbc = fetchResourceFile().getImage("cbs.png");
         Image mnet = fetchResourceFile().getImage("mnet.png");
@@ -969,6 +951,7 @@ public class StateMachine extends StateMachineBase {
         Image verve = fetchResourceFile().getImage("VERVE.png");
         Image sat = fetchResourceFile().getImage("SAT.png");
         Image dna = fetchResourceFile().getImage("dna.png");
+        Image mtech = fetchResourceFile().getImage("mtechlogo.jpg");
 
         Vector<Hashtable> partners = new Vector<Hashtable>();
 
@@ -991,38 +974,44 @@ public class StateMachine extends StateMachineBase {
         Hashtable h5 = new Hashtable();
         h5.put("logo", dna);
         h5.put("name", "DNA Model managers");
-        
+
         Hashtable h6 = new Hashtable();
         h6.put("logo", etisalat);
         h6.put("name", "Etisalat");
-        
+
         Hashtable h7 = new Hashtable();
         h7.put("logo", gentTouch);
         h7.put("name", "Nature's gentle Touch");
-        
+
         Hashtable h8 = new Hashtable();
         h8.put("logo", pAndG);
         h8.put("name", "P and G");
-        
+
         Hashtable h9 = new Hashtable();
         h9.put("logo", snap);
         h9.put("name", "Snap");
-        
+
         Hashtable h10 = new Hashtable();
         h10.put("logo", verve);
         h10.put("name", "Verve");
 
+        Hashtable h11 = new Hashtable();
+        h11.put("logo", mtech);
+        h11.put("name", "Mtech");
+        
         partners.add(h6);
         partners.add(h2);
         partners.add(h3);
         partners.add(h4);
         partners.add(h5);
         partners.add(h9);
+        partners.add(h11);
         partners.add(h1);
-        partners.add(h8);
-        partners.add(h10);     
-        partners.add(h7);     
+        partners.add(h10);
+        partners.add(h8);        
+        partners.add(h7);
         
+
         findContainer(f).removeAll();
         for (int i = 0; i < partners.size(); i++) {
             Hashtable hashtable = partners.get(i);
@@ -1047,6 +1036,7 @@ public class StateMachine extends StateMachineBase {
     protected void beforeNewsView(Form f) {
         Display.getInstance().unlockOrientation();
         f.setScrollable(false);
+        final BrowserComponent bcw = new BrowserComponent();
 
         Image btnHOME = fetchResourceFile().getImage("home.png");
         Button bc = new Button();
@@ -1055,6 +1045,7 @@ public class StateMachine extends StateMachineBase {
         bc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                bcw.destroy();
                 showForm("Menu", null);
 //                back();
             }
@@ -1066,17 +1057,15 @@ public class StateMachine extends StateMachineBase {
         findContainer(f).addComponent(BorderLayout.WEST, bc);
         findLabel(f).setText("News");
 
-//        Command close = new Command("Home") {
-//            @Override
-//            public void actionPerformed(ActionEvent evt) {
-//
-//                showForm("Menu", null);
-//                //Display.getInstance().exitApplication();
-//            }
-//        };
-//
-//
-//        f.getMenuBar().addCommand(close);
+        f.setBackCommand(new Command("Back") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                //super.actionPerformed(evt); //To change body of generated methods, choose Tools | Templates.
+                bcw.destroy();
+                back();
+            }
+        });
+
         Image bgwhite = fetchResourceFile().getImage("WHITEBACKGROUND.png");
 
         Display.getInstance().getDisplayHeight();
@@ -1086,45 +1075,53 @@ public class StateMachine extends StateMachineBase {
         f.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
 
         findContainer1(f).removeAll();
-        BrowserComponent bcw = new BrowserComponent();        
-        bcw.setURL("http://m.facebook.com/ANTMAFRICA");
-        
-        findContainer1(f).addComponent(BorderLayout.CENTER, bcw);
-        
-        Dialog d = new Dialog();
-        TextArea t = new TextArea();
-        t.setEditable(false);
-        t.setText("please wait, it takes a bit of time to load news page");
-        d.addComponent(t);
-        d.setTimeout(3000);
-        d.show();
-//        Container c = findContainer1(f);
-//        for (int i = 0; i < allNews.size(); i++) {
-//            Hashtable hashtable = allNews.get(i);
-//            //System.out.println("Object number "+i+" = "+hashtable);
-//            c.addComponent(addNews((String) hashtable.get("title"), (String) hashtable.get("details")));
-//        }
-    }
 
-    private Container addNews(final String title, final String details) {
-        //NewsRenderer
-        Resources res = fetchResourceFile();
-        Container c = createContainer(res, "NewsRenderer");
+        if ("etisalat".equals(choiceNews)) {
+            bcw.setURL("https://m.facebook.com/etisalatng");
+        } else if ("antm".equals(choiceNews)) {
+            bcw.setURL("http://m.facebook.com/ANTMAFRICA");
+        }
 
-        Button b = findNewsRendererNewsTitle(c);
-        b.setText(title);
-//        System.out.println("Title : "+ title);
-//        System.out.println("Details : "+ details);
-        b.addActionListener(new ActionListener() {
+        Image arrRight = fetchResourceFile().getImage("arrowright32.png");
+        Image arrLeft = fetchResourceFile().getImage("leftarrow32.png");
+
+        Container con = new Container();
+        Button b1 = new Button();
+        b1.setUIID("Label");
+        b1.setIcon(arrRight);
+        b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                news = new News(title, details);
 
-                showForm("EachNews", null);
+                try {
+                    bcw.forward();
+                } catch (Exception e) {
+                    Dialog.show("", "No page in history", "OK", null);
+                }
+
             }
         });
 
-        return c;
+        Button b2 = new Button();
+        b2.setUIID("Label");
+        b2.setIcon(arrLeft);
+        b2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if (bcw.hasBack()) {
+                    bcw.back();
+                } else {
+                    Dialog.show("", "No page in history", "OK", null);
+                }
+            }
+        });
+        con.setLayout(new BorderLayout());
+        con.addComponent(BorderLayout.WEST, b2);
+        con.addComponent(BorderLayout.EAST, b1);
+        findContainer1(f).addComponent(BorderLayout.CENTER, bcw);
+        f.addComponent(BorderLayout.SOUTH, con);
+
+
     }
 
     @Override
@@ -1156,29 +1153,87 @@ public class StateMachine extends StateMachineBase {
         findContainer3(f).addComponent(BorderLayout.WEST, bc);
         findLabel(f).setText("Contestants");
 
-        Image bgwhite = fetchResourceFile().getImage("WHITEBACKGROUND.png");
 
-        f.getStyle().setBgImage(bgwhite);
-        f.getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
+        Image ngr1 = fetchResourceFile().getImage("ngr_1.png");
+        Image ngr2 = fetchResourceFile().getImage("ngr_2.png");
+        Image ngr3 = fetchResourceFile().getImage("ngr_3.png");
+        Image sa1 = fetchResourceFile().getImage("s_a.png");
+        Image sa2 = fetchResourceFile().getImage("s_a_2.png");
+        Image sa3 = fetchResourceFile().getImage("s_a_3.png");
+        Image tunis = fetchResourceFile().getImage("tunisia.png");
+        Image ug = fetchResourceFile().getImage("uganda.png");
+        Image ang = fetchResourceFile().getImage("angola.png");
+        Image gh = fetchResourceFile().getImage("ghana.png");
+        Image ken = fetchResourceFile().getImage("kenya.png");
+        Image mbic = fetchResourceFile().getImage("mo_bic.png");
 
-        Container c = findContestantsContainer(f);
-        c.removeAll();
+        Hashtable h1 = new Hashtable();
+        h1.put("image", ngr1);
+        h1.put("name", "Omowunmi");
 
-        if ((contestantsFetched == null) || (contestantsFetched.isEmpty())) {
-            for (int i = 0; i < 12; i++) {
-                //System.out.println(i);
-                Image contImage = fetchResourceFile().getImage("placeholder.png");
-                c.addComponent(addContestantPix(i, contImage, ""));
-            }
-        } else {
-            for (int i = 0; i < contestantsFetched.size(); i++) {
-                //System.out.println(i);
-                Hashtable h = contestantsFetched.get(i);
-                //Image contImage = fetchResourceFile().getImage("placeholder.png");
-                c.addComponent(addContestantPix2(h.get("cid").toString(), h.get("imageurl").toString(), h.get("surname").toString(), h.get("firstname").toString(), h.get("age").toString(), h.get("dob").toString(), h.get("country").toString(), h.get("sdescription").toString(), h.get("height").toString()));
-            }
+        Hashtable h2 = new Hashtable();
+        h2.put("image", ngr2);
+        h2.put("name", "Joyce");
+
+        Hashtable h3 = new Hashtable();
+        h3.put("image", ngr3);
+        h3.put("name", "Opeyemi");
+
+        Hashtable h4 = new Hashtable();
+        h4.put("image", sa1);
+        h4.put("name", "Michelle");
+
+        Hashtable h5 = new Hashtable();
+        h5.put("image", sa2);
+        h5.put("name", "Cheandre");
+
+        Hashtable h6 = new Hashtable();
+        h6.put("image", sa3);
+        h6.put("name", "Rhulani");
+
+        Hashtable h7 = new Hashtable();
+        h7.put("image", tunis);
+        h7.put("name", "Marwa");
+
+        Hashtable h8 = new Hashtable();
+        h8.put("image", ug);
+        h8.put("name", "Aamito");
+
+        Hashtable h9 = new Hashtable();
+        h9.put("image", ang);
+        h9.put("name", "Michaela");
+
+        Hashtable h10 = new Hashtable();
+        h10.put("image", gh);
+        h10.put("name", "Roselyn");
+
+        Hashtable h11 = new Hashtable();
+        h11.put("image", ken);
+        h11.put("name", "Steffi");
+
+        Hashtable h12 = new Hashtable();
+        h12.put("image", mbic);
+        h12.put("name", "Safira");
+
+        Vector<Hashtable> conVec = new Vector<Hashtable>();
+        conVec.add(h1);
+        conVec.add(h2);
+        conVec.add(h3);
+        conVec.add(h4);
+        conVec.add(h5);
+        conVec.add(h6);
+        conVec.add(h7);
+        conVec.add(h8);
+        conVec.add(h9);
+        conVec.add(h10);
+        conVec.add(h11);
+        conVec.add(h12);
+
+        for (int i = 0; i < conVec.size(); i++) {
+            Hashtable hashtable = conVec.elementAt(i);
+            findContainer(f).addComponent(addContestant((Image) hashtable.get("image"), (String) hashtable.get("name")));
+            f.revalidate();
         }
-
     }
 
     @Override
@@ -1192,11 +1247,7 @@ public class StateMachine extends StateMachineBase {
 
     @Override
     protected boolean processBackground(final Form f) {
-//Scouting
-        //contestants
-        //News
-        //Gallery
-        // Partners
+
         super.processBackground(f);
         if ("Main".equals(f.getName())) {
             if (Storage.getInstance().exists("AntmUser")) {
@@ -1205,174 +1256,20 @@ public class StateMachine extends StateMachineBase {
                 return false;
 
             }
-            //return true;//loadDataFromStorage();
+
         }
         return true;
     }
 
-    public Container addContestant(String pix, String name, String age, String height, String country) throws IOException {
+    public Container addContestant(Image pix, String name) {
 
         Resources res = fetchResourceFile();
         Container c = createContainer(res, "EachContestant");
-        //Image i = Image.createImage(pix);
-        // c.removeAll();
-        //findPicture(c).getStyle().setBgImage(i.scaled((Display.getInstance().getDisplayHeight() / 2), (Display.getInstance().getDisplayWidth() / 2)));
-        //.setIcon(photo.scaledWidth(Display.getInstance().getDisplayWidth() / 3));
+        findContestantPicture(c).setIcon(pix.scaledWidth(Display.getInstance().getDisplayWidth() / 2));
         findContestantName(c).setText(name);
-        findContestantAge(c).setText(age);
-        findContestantCountry(c).setText(country);
-        findContestantHeight(c).setText(height);
+        //.setIcon(photo.scaledWidth(Display.getInstance().getDisplayWidth() / 3));
 
         return c;
-    }
-
-//    @Override
-//    protected void onEachNews_OKButtonAction(Component c, ActionEvent event) {
-//
-//        back();
-//    }
-    @Override
-    protected void beforeEachNews(Form f) {
-        Display.getInstance().unlockOrientation();
-        f.setScrollable(false);
-        Image btnHOME = fetchResourceFile().getImage("home.png");
-        Image btnShare = fetchResourceFile().getImage("share_icon.png");
-
-        ShareButton sb = new ShareButton();
-        sb.setTextToShare("ANTM AFRICA: " + news.getTitle() + ". see details here https://www.facebook.com/ANTMAfrica");
-        //System.out.println("ANTM AFRICA: "+news.getTitle()+". see details here https://www.facebook.com/ANTMAfrica");
-        sb.setIcon(btnShare);
-        sb.setUIID("Label");
-//        Button b = new Button();
-//        b.setUIID("Label");
-//        b.setIcon(btnShare);
-//        b.addActionListener(new ActionListener() {
-//
-//            public void actionPerformed(ActionEvent evt) {
-//                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//                Display.getInstance().share(news.getDetails(), null, "text/plain");
-//                
-//            }
-//        });
-        Button bc = new Button();
-        bc.setUIID("Label");
-        bc.setIcon(btnHOME);
-        bc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                showForm("Menu", null);
-                //back();
-            }
-        });
-        Image bghead = fetchResourceFile().getImage("head.png");
-        findContainer2(f).getStyle().setBgImage(bghead);
-        findContainer2(f).getStyle().setBorder(null);
-        findContainer2(f).getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED, true);
-        findContainer2(f).addComponent(BorderLayout.WEST, bc);
-        findContainer(f).addComponent(BorderLayout.EAST, sb);
-        findLabel1(f).setText("News");
-
-        findNewsTitleTextField(f).setText(news.getTitle());
-        findNewsDetailTextArea(f).setText(news.getDetails());
-        //Display.getInstance().share(status, imagePath, myKey);
-
-    }
-
-    // the layout. lock orientation. fix button to the bottom
-    public Container addScoutDate(final String date, final String address, final String country, final String time) throws IOException {
-
-        Resources res = fetchResourceFile();
-        Container c = createContainer(res, "EachScoutPlace");
-        MultiButton b = findScoutAddress(c);
-        //findScoutDate(c).setText(date);
-        b.setTextLine1(address);
-        b.setTextLine2(country);
-        b.setTextLine3(date + " time from : " + time);
-        b.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                // System.out.println(country);
-                //System.out.println((address.replace(' ', '+')) + "+" + country);
-                doGeocode((address.replace(' ', '+')) + "+" + country.replace(' ', '+'));
-                if ("200".equals(status)) {
-                    status = "";
-                    if (("OK".equals(status2)) && (!(latt == 0.0) && !(longs == 0.0))) {
-                        scoutingVenue = new ScoutingVenue(address, country, date, latt, longs);
-                        showForm("selectedScoutVenue", null);
-                    } else {
-                        Dialog.show("", "could not be located on the map", "OK", null);
-                    }
-                } else {
-                    Dialog.show("", "you may not be connected to the internet", "OK", null);
-                }
-            }
-        });
-        return c;
-    }
-
-    @Override
-    protected void beforeScoutingPlaces(Form f) {
-        Display.getInstance().unlockOrientation();
-        f.setScrollable(false);
-        Image btnHOME = fetchResourceFile().getImage("home.png");
-        Button bc = new Button();
-        bc.setUIID("Label");
-        bc.setIcon(btnHOME);
-        bc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                showForm("Menu", null);
-                //back();
-            }
-        });
-        Image bghead = fetchResourceFile().getImage("head.png");
-        findContainer(f).getStyle().setBgImage(bghead);
-        findContainer(f).getStyle().setBorder(null);
-        findContainer(f).getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED, true);
-        findContainer(f).addComponent(BorderLayout.WEST, bc);
-        findLabel(f).setText("Scouting Places");
-//        findLabel(f).getStyle().setBgImage(bgwhite);
-//        findLabel(f).getStyle().setBackgroundType(Style.TEXT_DECORATION_3D);
-
-        Container c = findScoutContainer(f);
-        for (int i = 0; i < scoutDates.size(); i++) {
-            try {
-                //byte b = photoByte[i];
-                Hashtable h = (Hashtable) scoutDates.get(i);
-                c.addComponent(addScoutDate(h.get("date").toString(), h.get("address").toString(), h.get("country").toString(), h.get("time").toString()));
-            } catch (IOException ex) {
-                //Logger.getLogger(StateMachine.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    @Override
-    protected void beforeSelectedScoutVenue(Form f) {
-
-        f.removeComponent(findScoutMapComponent(f));
-        Coord lastLocation = null;
-
-        final MapComponent mc = new MapComponent(new GoogleMapsProvider(myKey));
-        f.setScrollable(false);
-
-        lastLocation = new Coord(scoutingVenue.getLattitude(), scoutingVenue.getLongitude());
-        // mc.zoomTo(crd, 6);
-
-        PointsLayer pl = new PointsLayer();
-        Image redPin = fetchResourceFile().getImage("red_pin.png");
-        pl.setPointIcon(redPin);
-
-        //System.out.println("My lastlocation is " + lastLocation);
-
-        PointLayer p = new PointLayer(lastLocation, scoutingVenue.getAddress(), redPin);
-        //p.setDisplayName(true);
-        pl.addPoint(p);
-        mc.removeAllLayers();
-        mc.addLayer(pl);
-
-        mc.zoomTo(lastLocation, 15);
-        f.addComponent(BorderLayout.CENTER, mc);
-
     }
 
     @Override
@@ -1395,11 +1292,11 @@ public class StateMachine extends StateMachineBase {
         findAppUserPhoneNumberTextField(f).setEditable(false);
         Vector<Hashtable> ctryCodes;
         countryCodeStream = Display.getInstance().getResourceAsStream(this.getClass(), "/CountryCodes.json");
-//        try {
-//            Media m = MediaManager.createMedia("", false);
-//        } catch (IOException ex) {
-//            Logger.getLogger(StateMachine.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+
+        String num = Display.getInstance().getMsisdn();
+        if (num != null) {
+            findAppUserPhoneNumberTextField(f).setText(num);
+        }
         JSONParser p = new JSONParser();
         InputStreamReader inp = new InputStreamReader(countryCodeStream);
         Hashtable h = null;
@@ -1501,7 +1398,7 @@ public class StateMachine extends StateMachineBase {
 
         for (int i = 0; i < galleryImages.size(); i++) {
             Hashtable hashtable = galleryImages.get(i);
-            findContainer(f).addComponent(addGalleryPix(hashtable.get("url").toString(),i,f));
+            findContainer(f).addComponent(addGalleryPix(hashtable.get("url").toString(), i, f));
         }
     }
 
@@ -1510,98 +1407,6 @@ public class StateMachine extends StateMachineBase {
         Container c = createContainer(res, "EachGalleryPixZoom");
 
         final Button b = findGalleryImage(c);
-        //b.setText(cid);
-       // b.setTextPosition(2);
-//        b.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent evt) {
-//
-//                final Label l = new Label();
-//                if (Display.getInstance().getDisplayWidth() > Display.getInstance().getDisplayHeight()) {
-//                    // l.setIcon(b.getIcon().scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
-//                    //ImageDownloadService.createImageToStorage(imageurl + ";deviceside=true", l, cid, new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
-//                    final ConnectionRequest request = new ConnectionRequest() {
-//                        @Override
-//                        protected void readResponse(InputStream input) throws IOException {
-//
-//                            EncodedImage image = EncodedImage.create(input);
-//                            l.setIcon(image.scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
-//
-//                        }
-//                    };
-//
-//
-//                    final NetworkManager manager = NetworkManager.getInstance();
-//
-//
-//                    //String url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false";
-//                    request.setUrl(imageurl);
-//
-//                    request.setFailSilently(true);//stops user from seeing error message on failure
-//                    request.setPost(false);
-//                    request.setDuplicateSupported(true);
-//
-//                    manager.start();
-//                    manager.setTimeout(5000);
-//                    manager.addToQueue(request);
-//
-//                } else {
-//                    // l.setIcon(b.getIcon().scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-//                    //ImageDownloadService.createImageToStorage(imageurl + ";deviceside=true", l, cid, new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-//                    final ConnectionRequest request = new ConnectionRequest() {
-//                        @Override
-//                        protected void readResponse(InputStream input) throws IOException {
-//
-//                            EncodedImage image = EncodedImage.create(input);
-//                            l.setIcon(image.scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight()));
-//
-//                        }
-//                    };
-//
-//
-//                    final NetworkManager manager = NetworkManager.getInstance();
-//
-//
-//                    //String url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false";
-//                    request.setUrl(imageurl);
-//
-//                    request.setFailSilently(true);//stops user from seeing error message on failure
-//                    request.setPost(false);
-//                    request.setDuplicateSupported(true);
-//
-//                    manager.start();
-//                    manager.setTimeout(5000);
-//                    manager.addToQueue(request);
-//
-//                }
-//                //l.setIcon(b.getIcon().scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-//                //ImageDownloadService.createImageToStorage(imageurl, l, cid, new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-//                Command[] cmds = new Command[2];
-//                cmds[0] = new Command("OK") {
-//                    @Override
-//                    public void actionPerformed(ActionEvent evt) {
-//                    }
-//                };
-//                cmds[1] = new Command("View All") {
-//                    @Override
-//                    public void actionPerformed(ActionEvent evt) {
-//                        showForm("ZoomedGallery", null);
-//                    }
-//                };
-////                cmds[2] = new Command("Share") {
-////                    @Override
-////                    public void actionPerformed(ActionEvent evt) {
-////                        //Image btnShare = fetchResourceFile().getImage("share_icon.png");
-//////
-//////                        ShareButton sb = new ShareButton();
-//////                        sb.setImageToShare(imageurl, "image/jpeg");//TextToShare(news.getDetails());
-////                        //sb.setIcon(btnShare);
-////                        //sb.setUIID("Label");
-////                        Display.getInstance().share(imageurl, null, "image/jpeg");
-////                    }
-////                };
-//               // Dialog.show(cid, l, cmds);
-//            }
-//        });
 
         final ConnectionRequest request = new ConnectionRequest() {
             @Override
@@ -1631,155 +1436,6 @@ public class StateMachine extends StateMachineBase {
         return c;
     }
 
-    private Container addPixToZoom(final String cid, final String imageurl) {
-        Resources res = fetchResourceFile();
-        Container c = createContainer(res, "EachGalleryPix");
-
-        final ShareButton b = findGalleryImageToZoom(c);
-        b.setText(cid);
-        b.setTextPosition(2);
-        b.setImageToShare(imageurl, "image/jpeg");
-        final ConnectionRequest request = new ConnectionRequest() {
-            @Override
-            protected void readResponse(InputStream input) throws IOException {
-
-                EncodedImage image = EncodedImage.create(input);
-                b.setIcon(image.scaledWidth(Display.getInstance().getDisplayWidth() / 2));
-
-            }
-        };
-
-
-        final NetworkManager manager = NetworkManager.getInstance();
-
-
-        //String url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false";
-        request.setUrl(imageurl);
-
-        request.setFailSilently(true);//stops user from seeing error message on failure
-        request.setPost(false);
-        request.setDuplicateSupported(true);
-
-        manager.start();
-        manager.setTimeout(5000);
-        manager.addToQueue(request);
-
-
-        return c;
-    }
-
-    @Override
-    protected void beforeZoomedGallery(Form f) {
-        f.setScrollable(false);
-        Image btnHOME = fetchResourceFile().getImage("home.png");
-        Button bc = new Button();
-        bc.setUIID("Label");
-        bc.setIcon(btnHOME);
-        bc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                showForm("Menu", null);
-                //back();
-            }
-        });
-        Image bghead = fetchResourceFile().getImage("head.png");
-        findContainer1(f).getStyle().setBgImage(bghead);
-        findContainer1(f).getStyle().setBorder(null);
-        findContainer1(f).getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED);
-        findContainer1(f).addComponent(BorderLayout.WEST, bc);
-        findLabel(f).setText("Gallery");
-
-        findContainer(f).setScrollableX(true);
-        for (int i = 0; i < galleryImages.size(); i++) {
-            //System.out.println(i);
-            Hashtable hashtable = galleryImages.get(i);
-            findContainer(f).addComponent(addPixToZoom(hashtable.get("cid").toString(), hashtable.get("imageurl").toString()));
-        }
-    }
-
-    @Override
-    protected void beforeSelectedContestant(Form f) {
-
-        f.setScrollable(false);
-
-        Image btnHOME = fetchResourceFile().getImage("home.png");
-        Button bc = new Button();
-        bc.setUIID("Label");
-        bc.setIcon(btnHOME);
-        bc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                showForm("Menu", null);
-                //back();
-            }
-        });
-        Image bghead = fetchResourceFile().getImage("head.png");
-        findContainer1(f).getStyle().setBgImage(bghead);
-        findContainer1(f).getStyle().setBorder(null);
-        findContainer1(f).getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED, true);
-        findContainer1(f).addComponent(BorderLayout.WEST, bc);
-        findLabel(f).setText("Contestant");
-
-        findSelectedContestantName(f).setText(contestant.getSurname() + " " + contestant.getFirstname());
-        findSelectedContestantAge(f).setText("Age :" + contestant.getAge());
-        findSelectedContestantCountry(f).setText("Country : " + contestant.getCountry());
-        findSelectedContestantAboutMe(f).setText(contestant.getDescription());
-        final Button b = findSelectedContestantPix(f);//+";deviceside=true" +";deviceside=true"
-        if (Display.getInstance().getDisplayWidth() > Display.getInstance().getDisplayHeight()) {
-            //ImageDownloadService.createImageToStorage(contestant.getPicture(), b, contestant.getCid(), new Dimension(Display.getInstance().getDisplayWidth() / 3, Display.getInstance().getDisplayHeight() / 2));
-            final ConnectionRequest request = new ConnectionRequest() {
-                @Override
-                protected void readResponse(InputStream input) throws IOException {
-
-                    EncodedImage image = EncodedImage.create(input);
-                    b.setIcon(image.scaled(Display.getInstance().getDisplayWidth() / 3, Display.getInstance().getDisplayHeight() / 2));
-
-                }
-            };
-
-
-            final NetworkManager manager = NetworkManager.getInstance();
-
-
-            //String url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false";
-            request.setUrl(contestant.getPicture());
-
-            request.setFailSilently(true);//stops user from seeing error message on failure
-            request.setPost(false);
-            request.setDuplicateSupported(true);
-
-            manager.start();
-            manager.setTimeout(5000);
-            manager.addToQueue(request);
-        } else {
-            //ImageDownloadService.createImageToStorage(contestant.getPicture(), b, contestant.getCid(), new Dimension(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-            final ConnectionRequest request = new ConnectionRequest() {
-                @Override
-                protected void readResponse(InputStream input) throws IOException {
-
-                    EncodedImage image = EncodedImage.create(input);
-                    b.setIcon(image.scaled(Display.getInstance().getDisplayWidth() / 2, Display.getInstance().getDisplayHeight() / 2));
-
-                }
-            };
-
-
-            final NetworkManager manager = NetworkManager.getInstance();
-
-
-            //String url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false";
-            request.setUrl(contestant.getPicture());
-
-            request.setFailSilently(true);//stops user from seeing error message on failure
-            request.setPost(false);
-            request.setDuplicateSupported(true);
-
-            manager.start();
-            manager.setTimeout(5000);
-            manager.addToQueue(request);
-        }
-    }
-
     @Override
     protected void onAppRegister_AppUserPhoneNumberTextFieldAction(Component c, ActionEvent event) {
 
@@ -1790,8 +1446,76 @@ public class StateMachine extends StateMachineBase {
     }
 
     @Override
-    protected void onSelectedContestant_VoteSelectedContestantAction(Component c, ActionEvent event) {
+    protected void beforeVideoView(Form f) {
+        //http://www.youtube.com/antmafrica
+        final BrowserComponent bcw = new BrowserComponent();
+        Image btnHOME = fetchResourceFile().getImage("home.png");
+        Button bc = new Button();
+        bc.setUIID("Label");
+        bc.setIcon(btnHOME);
+        bc.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                bcw.destroy();
+                showForm("Menu", null);
+//                back();
+            }
+        });
+        Image bghead = fetchResourceFile().getImage("head.png");
+        findContainer1(f).getStyle().setBgImage(bghead);
+        findContainer1(f).getStyle().setBorder(null);
+        findContainer1(f).getStyle().setBackgroundType(Style.BACKGROUND_IMAGE_SCALED, true);
+        findContainer1(f).addComponent(BorderLayout.WEST, bc);
+        findLabel(f).setText("Videos");
 
-        back();
+        bcw.setURL("http://m.youtube.com/antmafrica");
+
+        Image arrRight = fetchResourceFile().getImage("arrowright32.png");
+        Image arrLeft = fetchResourceFile().getImage("leftarrow32.png");
+
+        Container con = new Container();
+        Button b1 = new Button();
+        b1.setUIID("Label");
+        b1.setIcon(arrRight);
+        b1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+                if (bcw.hasForward()) {
+                    bcw.forward();
+                } else {
+                    Dialog.show("", "No page in history", "OK", null);
+                }
+
+            }
+        });
+
+        Button b2 = new Button();
+        b2.setUIID("Label");
+        b2.setIcon(arrLeft);
+        b2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                if (bcw.hasBack()) {
+                    bcw.back();
+                } else {
+                    Dialog.show("", "No page in history", "OK", null);
+                }
+            }
+        });
+        con.setLayout(new BorderLayout());
+        con.addComponent(BorderLayout.WEST, b2);
+        con.addComponent(BorderLayout.EAST, b1);
+        findContainer(f).addComponent(BorderLayout.CENTER, bcw);
+        f.addComponent(BorderLayout.SOUTH, con);
+
+        f.setBackCommand(new Command("Back") {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                //super.actionPerformed(evt); //To change body of generated methods, choose Tools | Templates.
+                bcw.destroy();
+                back();
+            }
+        });
     }
 }
